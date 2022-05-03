@@ -13,6 +13,7 @@ get into project using  `cd api.dann` command.
 
 ### step 3:
 do the following commands <br>
+- `composer install` <br>
 - create a database called **dann** in mysql <br>
 - `cp .env.example .env` <br>
 - go to .env file and make *DB_DATABASE=dann* <br>
