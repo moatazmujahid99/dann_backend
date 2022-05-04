@@ -16,7 +16,7 @@ class AuthController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:55',
             'email' => 'required|email|unique:sellers,email|min:5|max:60',
-            'password' => 'required|min:6|confirmed'
+            'password' => 'required|min:6|max:30|confirmed'
         ]);
 
         if ($validator->fails()) {
@@ -46,8 +46,8 @@ class AuthController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'email' => 'required|email|exists:sellers,email',
-            'password' => 'required|min:5|max:30'
+            'email' => 'required|email|min:5|max:60',
+            'password' => 'required|min:6|max:30'
         ]);
 
         if ($validator->fails()) {
