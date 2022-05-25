@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\User\AuthController;
+use App\Http\Controllers\Api\customer\AuthController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -14,11 +14,11 @@ use App\Http\Controllers\Api\User\AuthController;
 |
 */
 
-Route::post('user/register', [AuthController::class, 'register'])->name('userRegister');
-Route::post('user/login', [AuthController::class, 'login'])->name('userLogin');
+Route::post('customer/register', [AuthController::class, 'register'])->name('customerRegister');
+Route::post('customer/login', [AuthController::class, 'login'])->name('customerLogin');
 
 
-Route::group(['prefix' => 'user', 'middleware' => 'auth:user-api'], function () {
+Route::group(['prefix' => 'customer', 'middleware' => 'auth:customer-api'], function () {
     // authenticated staff routes here
-    Route::get('', [AuthController::class, 'viewLoggedInUser']);
+    Route::get('', [AuthController::class, 'viewLoggedInCustomer']);
 });

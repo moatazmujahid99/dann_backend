@@ -11,7 +11,6 @@ use Laravel\Passport\HasApiTokens;
 class Seller extends Authenticatable
 {
     use HasFactory, Notifiable, HasApiTokens;
-
     protected $fillable = [
         'name', 'email', 'password',
     ];

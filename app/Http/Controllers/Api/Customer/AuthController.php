@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Api\User;
+namespace App\Http\Controllers\Api\customer;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\User;
+use App\Models\Customer;
 use Hash;
 use Validator;
 use Auth;
+
 
 class AuthController extends Controller
 {
@@ -15,7 +16,7 @@ class AuthController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:55',
-            'email' => 'required|email|unique:users,email|min:5|max:60',
+            'email' => 'required|email|unique:customers,email|min:5|max:60',
             'password' => 'required|min:6|max:30|confirmed'
         ]);
 
@@ -26,18 +27,18 @@ class AuthController extends Controller
             ]);
         }
 
-        $user = User::create([
+        $customer = Customer::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password)
         ]);
 
-        $token = $user->createToken('app')->accessToken;
+        $token = $customer->createToken('app')->accessToken;
 
         return response()->json([
             'message' => "Registration is done successfully",
             'token' => $token,
-            'user' => $user,
+            'user' => $customer,
             'status' => 201
         ]);
     }
@@ -57,16 +58,16 @@ class AuthController extends Controller
             ]);
         }
 
-        if (Auth::guard('user')->attempt($request->only('email', 'password'))) {
+        if (Auth::guard('customer')->attempt($request->only('email', 'password'))) {
 
-            $user = Auth::guard('user')->user();
+            $customer = Auth::guard('customer')->user();
 
-            $token = $user->createToken('app')->accessToken;
+            $token = $customer->createToken('app')->accessToken;
 
             return response()->json([
                 'message' => "Successfully Logged in",
                 'token' => $token,
-                'user' => $user,
+                'customer' => $customer,
                 'status' => 200
             ]);
         }
@@ -78,10 +79,10 @@ class AuthController extends Controller
     }
 
 
-    public function viewLoggedInUser()
+    public function viewLoggedInCustomer()
     {
         return response()->json([
-            'user' => Auth::guard('user-api')->user(),
+            'customer' => Auth::guard('customer-api')->user(),
             'status' => 200
         ]);
     }
