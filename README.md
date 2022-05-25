@@ -30,7 +30,7 @@ after that go to link localhost:8000 and make sure every thing work correctly
 <br>
 
 ### step 4:
-use api_development
+use "api_development" branch
 - `git checkout api_development`
 
 
