@@ -18,7 +18,8 @@ get into project using  `cd dann_backend` command.
 
 ### step 3:
 do the following commands <br>
-- `composer install`
+- `composer install`<br>
+- `npm install``<br>
 - `cp .env.example .env` <br>
 - go to .env file and make *DB_DATABASE=dann* <br>
 - - create a database called **dann** in mysql
