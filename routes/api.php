@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Seller\SellerController;
 use App\Http\Controllers\Api\Customer\CustomerController;
 
+use App\Http\Controllers\CategoryController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -17,9 +19,14 @@ use App\Http\Controllers\Api\Customer\CustomerController;
 */
 
 
-
+//(seller or customer) only can access those routes
 Route::get('/sellers', [SellerController::class, 'index']);
 Route::get('/seller/{seller_id}', [SellerController::class, 'show']);
 
 Route::get('/customers', [CustomerController::class, 'index']);
 Route::get('/customer/{customer_id}', [CustomerController::class, 'show']);
+
+
+//anyone acccess those routes
+Route::post('/category/create', [CategoryController::class, 'store']);
+Route::get('/categories', [CategoryController::class, 'index']);
