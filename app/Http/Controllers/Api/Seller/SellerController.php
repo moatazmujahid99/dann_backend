@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Resources\seller\SellersDisplay;
+use App\Http\Resources\seller\SellerResource;
+
 
 class SellerController extends Controller
 {
@@ -20,7 +23,23 @@ class SellerController extends Controller
      */
     public function index()
     {
-        //
+
+        if (Auth::guard('seller-api')->check()) {
+            $sellers = Seller::where('id', '!=', Auth::guard('seller-api')->user()->id)->get();
+        } elseif (Auth::guard('customer-api')->check()) {
+            $sellers = Seller::all();
+        } else {
+            return response()->json([
+                "message" => "Unauthenticated.",
+                "status" => 401
+            ]);
+        }
+
+
+        return response()->json([
+            'sellers' => SellersDisplay::collection($sellers),
+            'status' => 200
+        ]);
     }
 
     /**
@@ -40,9 +59,30 @@ class SellerController extends Controller
      * @param  \App\Models\Seller  $seller
      * @return \Illuminate\Http\Response
      */
-    public function show(Seller $seller)
+    public function show($id)
     {
-        //
+        $seller = Seller::find($id);
+
+        if (!$seller) {
+            return response()->json([
+                'message' => "seller not found",
+                'status' => 404
+            ]);
+        }
+
+        if (Auth::guard('seller-api')->check() || Auth::guard('customer-api')->check()) {
+
+            return response()->json([
+                'seller' => new SellerResource($seller),
+                'status' => 200
+            ]);
+        } else {
+
+            return response()->json([
+                "message" => "Unauthenticated.",
+                "status" => 401
+            ]);
+        }
     }
 
     /**

@@ -20,6 +20,6 @@ Route::post('/seller/login', [AuthController::class, 'login'])->name('sellerLogi
 
 
 Route::group(['middleware' => 'auth:seller-api'], function () {
-    Route::get('/seller', [AuthController::class, 'viewLoggedInSeller']);
+
     Route::post('/seller/{seller_id}/update', [SellerController::class, 'update']);
 });

@@ -8,6 +8,7 @@ use App\Models\Seller;
 use Hash;
 use Validator;
 use Auth;
+use App\Http\Resources\seller\SellerResource;
 
 class AuthController extends Controller
 {
@@ -38,7 +39,12 @@ class AuthController extends Controller
         return response()->json([
             'message' => "Registration is done successfully",
             'token' => $token,
-            'seller' => $seller,
+            'seller' => [
+                'id' => $seller->id,
+                'name' => $seller->name,
+                'email' => $seller->email,
+                'password' => $seller->password
+            ],
             'status' => 201
         ]);
     }
@@ -67,7 +73,12 @@ class AuthController extends Controller
             return response()->json([
                 'message' => "Successfully Logged in",
                 'token' => $token,
-                'seller' => $seller,
+                'seller' => [
+                    'id' => $seller->id,
+                    'name' => $seller->name,
+                    'email' => $seller->email,
+                    'password' => $seller->password
+                ],
                 'status' => 200
             ]);
         }
@@ -79,11 +90,11 @@ class AuthController extends Controller
     }
 
 
-    public function viewLoggedInSeller()
-    {
-        return response()->json([
-            'seller' => Auth::guard('seller-api')->user(),
-            'status' => 200
-        ]);
-    }
+    // public function viewLoggedInSeller()
+    // {
+    //     return response()->json([
+    //         'seller' => new SellerResource(Auth::guard('seller-api')->user()),
+    //         'status' => 200
+    //     ]);
+    // }
 }
