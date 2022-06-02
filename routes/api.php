@@ -28,5 +28,5 @@ Route::get('/customer/{customer_id}', [CustomerController::class, 'show']);
 
 
 //anyone acccess those routes
-Route::post('/category/create', [CategoryController::class, 'store']);
-Route::get('/categories', [CategoryController::class, 'index']);
+Route::post('/create/category/for_sellers', [CategoryController::class, 'store']);
+Route::get('/sellers/categories', [CategoryController::class, 'index']);
