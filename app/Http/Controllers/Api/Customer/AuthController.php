@@ -38,7 +38,12 @@ class AuthController extends Controller
         return response()->json([
             'message' => "Registration is done successfully",
             'token' => $token,
-            'user' => $customer,
+            'customer' => [
+                'id' => $customer->id,
+                'name' => $customer->name,
+                'email' => $customer->email,
+                'password' => $customer->password
+            ],
             'status' => 201
         ]);
     }
@@ -67,7 +72,12 @@ class AuthController extends Controller
             return response()->json([
                 'message' => "Successfully Logged in",
                 'token' => $token,
-                'customer' => $customer,
+                'customer' => [
+                    'id' => $customer->id,
+                    'name' => $customer->name,
+                    'email' => $customer->email,
+                    'password' => $customer->password
+                ],
                 'status' => 200
             ]);
         }
