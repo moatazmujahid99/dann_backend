@@ -89,11 +89,11 @@ class AuthController extends Controller
     }
 
 
-    public function viewLoggedInCustomer()
-    {
-        return response()->json([
-            'customer' => Auth::guard('customer-api')->user(),
-            'status' => 200
-        ]);
-    }
+    // public function viewLoggedInCustomer()
+    // {
+    //     return response()->json([
+    //         'customer' => Auth::guard('customer-api')->user(),
+    //         'status' => 200
+    //     ]);
+    // }
 }
