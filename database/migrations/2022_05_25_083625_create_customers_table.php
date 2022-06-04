@@ -19,6 +19,9 @@ class CreateCustomersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('customer_img')->nullable();
+            $table->text('bio')->nullable();
+
             $table->timestamps();
         });
     }
