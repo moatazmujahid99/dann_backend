@@ -7,6 +7,10 @@ use App\Http\Controllers\Api\Customer\CustomerController;
 
 use App\Http\Controllers\CategoryController;
 
+// omar - check
+use App\Http\Controllers\Admin\VisitorController;
+use App\Http\Controllers\Admin\ContactController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -30,3 +34,12 @@ Route::get('/customer/{customer_id}', [CustomerController::class, 'show']);
 //anyone acccess those routes
 Route::post('/create/category/for_sellers', [CategoryController::class, 'store']);
 Route::get('/sellers/categories', [CategoryController::class, 'index']);
+
+
+
+
+// omar - check
+//Visitor details api route
+Route::get('/getvisitor', [VisitorController::class, 'GetVisitorDetails']);
+//Contact page api route
+Route::post('/postcontact', [ContactController::class, 'PostContactDetails']);
