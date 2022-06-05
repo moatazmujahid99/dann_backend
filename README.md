@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # important Notes
 
 ## How to get project and test it
@@ -36,3 +37,6 @@ use "api_development" branch
 - `git checkout api_development`
 
 
+=======
+
+>>>>>>> 29bfc8519fec742623972611a4732bd14c72df8d
