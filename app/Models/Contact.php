@@ -10,15 +10,4 @@ class Contact extends Model
     use HasFactory;
     protected $guarded =[];
 
-    // protected $fillable = [
-    //     'name',
-    //     'email',
-    //     'phone',
-    //     'subject',
-    //     'message',
-    //     'contact_date',
-    //     'contact_time',
-    // ];
-
-
 }
