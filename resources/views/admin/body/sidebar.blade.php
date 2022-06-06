@@ -3,9 +3,10 @@
 				<div>
 					<img src="{{ asset('backend/assets/images/logo-icon.png') }}" class="logo-icon" alt="logo icon">
 				</div>
-				<div>
+                {{-- omar - check --}}
+				{{-- <div>
 					<h4 class="logo-text">Dann</h4>
-				</div>
+				</div> --}}
 				<div class="toggle-icon ms-auto"><i class='bx bx-arrow-to-left'></i>
 				</div>
 			</div>

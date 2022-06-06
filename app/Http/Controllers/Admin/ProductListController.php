@@ -89,7 +89,9 @@ class ProductListController extends Controller
         $name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
         Image::make($image)->resize(711,960)->save('upload/product/'.$name_gen);
         $save_url = 'http://127.0.0.1:8000/upload/product/'.$name_gen;
-
+        //omar-check
+        //product rating
+        $star='N/A';
         $product_id = ProductList::insertGetId([
             'title' => $request->title,
             'price' => $request->price,
@@ -100,6 +102,7 @@ class ProductListController extends Controller
             'brand' => $request->brand,
             'product_code' => $request->product_code,
             'image' => $save_url,
+            'star' => $star,
 
         ]);
 
@@ -118,6 +121,7 @@ class ProductListController extends Controller
 
 
      $image3 = $request->file('image_three');
+     //omar - check
     $name_gen3 = hexdec(uniqid()).'.'.$image3->getClientOriginalExtension();
     Image::make($image1)->resize(711,960)->save('upload/productdetails/'.$name_gen3);
     $save_url3 = 'http://127.0.0.1:8000/upload/productdetails/'.$name_gen3;
@@ -151,7 +155,7 @@ class ProductListController extends Controller
         return redirect()->route('all.product')->with($notification);
 
 
-    } // End Method
+    } // End Store product Method
 
 
 
