@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>Dann</title>
+    <title>Dann Business Park</title>
     <meta name="description" content="Dann Business Park" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="shortcut icon" type="image/x-icon" href={{ asset('landing/assets/images/favicon.svg') }}/>
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('landing/assets/images/favicon.png') }}"/>
     <!-- Place favicon.ico in the root directory -->
 
     <!-- ========================= CSS here ========================= -->
