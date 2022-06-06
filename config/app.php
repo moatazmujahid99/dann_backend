@@ -177,6 +177,10 @@ return [
         App\Providers\FortifyServiceProvider::class,
         App\Providers\JetstreamServiceProvider::class,
 
+        //image intervention package
+        //omar - check
+        Intervention\Image\ImageServiceProvider::class,
+
     ],
 
     /*
@@ -231,6 +235,9 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        //omar - check
+        //laravel image intervention
+        'Image' => Intervention\Image\Facades\Image::class,
 
     ],
 

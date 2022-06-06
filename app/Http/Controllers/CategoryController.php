@@ -19,7 +19,7 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = DB::table('categories')
-            ->select('id', 'name')
+            ->select('id', 'category_name','category_image')
             ->get();
 
         return response()->json([
@@ -51,13 +51,17 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $category = Category::create([
-            'name' => $request->name,
+            'category_name' => $request->category_name,
+            'category_image' => $request->category_image,
         ]);
 
         return response()->json([
             'message' => 'category is created successfully',
-            'category' => [
-                $category->name
+            'category_name' => [
+                $category->category_name
+            ],
+            'category_image' => [
+                $category->category_image
             ],
             'status' => 201
         ]);

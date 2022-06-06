@@ -1,7 +1,12 @@
-<x-guest-layout>
+
+
+     <x-guest-layout>
+
     <x-jet-authentication-card>
+
         <x-slot name="logo">
-            <x-jet-authentication-card-logo />
+            <a href="/" >
+            <img src="{{asset('backend/assets/images/logo-icon.png') }}" class="logo-icon" alt="logo icon" /></a>
         </x-slot>
 
         <x-jet-validation-errors class="mb-4" />
@@ -16,6 +21,8 @@
             @csrf
 
             <div>
+                <h1 style="text-align:center; font-size: 200%; color:#041e43; ">Dann Business Park</h1><br/>
+                <h1 style="text-align:center; font-size:150%;color:#0071ce;">Login to your business account</h1><br/>
                 <x-jet-label for="email" value="{{ __('Email') }}" />
                 <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
             </div>
@@ -46,3 +53,4 @@
         </form>
     </x-jet-authentication-card>
 </x-guest-layout>
+

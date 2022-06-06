@@ -145,7 +145,7 @@ class SellerController extends Controller
                 'email' => $seller->email,
                 'phone_number' => $seller->phone_number ?? null,
                 'address' => $seller->address ?? null,
-                'category' => $seller->category->name ?? null,
+                'category' => $seller->category->category_name ?? null,
                 'image_url' => $seller->seller_img ? URL::to('images/sellers/' . $seller->seller_img) : null
             ],
             'status' => 200
