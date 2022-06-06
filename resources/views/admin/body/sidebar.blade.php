@@ -1,7 +1,9 @@
 <div class="sidebar-wrapper" data-simplebar="true">
 			<div class="sidebar-header">
 				<div>
+                    <a href="{{ url('/') }}">
 					<img src="{{ asset('backend/assets/images/logo-icon.png') }}" class="logo-icon" alt="logo icon">
+                    </a>
 				</div>
                 {{-- omar - check --}}
 				{{-- <div>

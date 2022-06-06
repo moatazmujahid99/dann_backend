@@ -189,7 +189,7 @@
 													<img src={{ asset('backend/assets/images/avatars/avatar-1.png') }} class="msg-avatar" alt="user avatar">
 												</div>
 												<div class="flex-grow-1">
-													<h6 class="msg-name">Daisy Anderson <span class="msg-time float-end">5 sec
+													<h6 class="msg-name">Magdy Ahmed <span class="msg-time float-end">5 sec
 												ago</span></h6>
 													<p class="msg-info">The standard chunk of lorem</p>
 												</div>
@@ -201,7 +201,7 @@
 													<img src={{ asset('backend/assets/images/avatars/avatar-2.png') }} class="msg-avatar" alt="user avatar">
 												</div>
 												<div class="flex-grow-1">
-													<h6 class="msg-name">Althea Cabardo <span class="msg-time float-end">14
+													<h6 class="msg-name">Salma Mohamed <span class="msg-time float-end">14
 												sec ago</span></h6>
 													<p class="msg-info">Many desktop publishing packages</p>
 												</div>
@@ -213,7 +213,7 @@
 													<img src={{ asset('backend/assets/images/avatars/avatar-3.png') }} class="msg-avatar" alt="user avatar">
 												</div>
 												<div class="flex-grow-1">
-													<h6 class="msg-name">Oscar Garner <span class="msg-time float-end">8 min
+													<h6 class="msg-name">Sara Ibrahim <span class="msg-time float-end">8 min
 												ago</span></h6>
 													<p class="msg-info">Various versions have evolved over</p>
 												</div>
@@ -225,7 +225,7 @@
 													<img src={{ asset('backend/assets/images/avatars/avatar-4.png') }} class="msg-avatar" alt="user avatar">
 												</div>
 												<div class="flex-grow-1">
-													<h6 class="msg-name">Katherine Pechon <span class="msg-time float-end">15
+													<h6 class="msg-name">Sayed Ali <span class="msg-time float-end">15
 												min ago</span></h6>
 													<p class="msg-info">Making this the first true generator</p>
 												</div>
@@ -237,7 +237,7 @@
 													<img src={{ asset('backend/assets/images/avatars/avatar-5.png') }} class="msg-avatar" alt="user avatar">
 												</div>
 												<div class="flex-grow-1">
-													<h6 class="msg-name">Amelia Doe <span class="msg-time float-end">22 min
+													<h6 class="msg-name">Yara Emad <span class="msg-time float-end">22 min
 												ago</span></h6>
 													<p class="msg-info">Duis aute irure dolor in reprehenderit</p>
 												</div>
@@ -249,7 +249,7 @@
 													<img src={{ asset('backend/assets/images/avatars/avatar-6.png') }} class="msg-avatar" alt="user avatar">
 												</div>
 												<div class="flex-grow-1">
-													<h6 class="msg-name">Cristina Jhons <span class="msg-time float-end">2 hrs
+													<h6 class="msg-name">Menna Ehab <span class="msg-time float-end">2 hrs
 												ago</span></h6>
 													<p class="msg-info">The passage is attributed to an unknown</p>
 												</div>
