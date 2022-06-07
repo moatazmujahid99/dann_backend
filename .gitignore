@@ -3,6 +3,10 @@
 /public/storage
 /public/images/sellers/*
 /public/images/customers/*
+/public/upload/category/*
+/public/upload/product/*
+/public/upload/productdetails/*
+/public/upload/slider/*
 /storage/*.key
 /vendor
 .env
