@@ -23,7 +23,6 @@ class SellerController extends Controller
      */
     public function index()
     {
-
         if (Auth::guard('seller-api')->check()) {
             $sellers = Seller::where('id', '!=', Auth::guard('seller-api')->user()->id)->get();
         } elseif (Auth::guard('customer-api')->check()) {
@@ -145,7 +144,7 @@ class SellerController extends Controller
                 'email' => $seller->email,
                 'phone_number' => $seller->phone_number ?? null,
                 'address' => $seller->address ?? null,
-                'category' => $seller->category->category_name ?? null,
+                'category' => $seller->category->name ?? null,
                 'image_url' => $seller->seller_img ? URL::to('images/sellers/' . $seller->seller_img) : null
             ],
             'status' => 200

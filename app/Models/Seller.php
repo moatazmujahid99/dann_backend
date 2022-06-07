@@ -18,6 +18,6 @@ class Seller extends Authenticatable
 
     public function category()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(SellerCategory::class);
     }
 }

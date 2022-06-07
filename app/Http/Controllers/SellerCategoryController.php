@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
+use App\Models\SellerCategory;
+use App\Http\Requests\StoreSellerCategoryRequest;
+use App\Http\Requests\UpdateSellerCategoryRequest;
 use Illuminate\Http\Request;
-use App\Http\Requests\StoreCategoryRequest;
-use App\Http\Requests\UpdateCategoryRequest;
-
 use Illuminate\Support\Facades\DB;
 
-class CategoryController extends Controller
+class SellerCategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,8 +17,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = DB::table('categories')
-            ->select('id', 'category_name','category_image')
+        $categories = DB::table('seller_categories')
+            ->select('id', 'name')
             ->get();
 
         return response()->json([
@@ -41,40 +40,29 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreCategoryRequest  $request
+     * @param  \App\Http\Requests\StoreSellerCategoryRequest  $request
      * @return \Illuminate\Http\Response
      */
-    // public function store(StoreCategoryRequest $request)
-    // {
-    //     //
-    // }
     public function store(Request $request)
     {
-        $category = Category::create([
-            'category_name' => $request->category_name,
-            'category_image' => $request->category_image,
+        $category = SellerCategory::create([
+            'name' => $request->name,
         ]);
 
         return response()->json([
             'message' => 'category is created successfully',
-            'category_name' => [
-                $category->category_name
-            ],
-            'category_image' => [
-                $category->category_image
-            ],
+            'category' => $category->name,
             'status' => 201
         ]);
     }
 
-
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\SellerCategory  $sellerCategory
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show(SellerCategory $sellerCategory)
     {
         //
     }
@@ -82,10 +70,10 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\SellerCategory  $sellerCategory
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit(SellerCategory $sellerCategory)
     {
         //
     }
@@ -93,11 +81,11 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateCategoryRequest  $request
-     * @param  \App\Models\Category  $category
+     * @param  \App\Http\Requests\UpdateSellerCategoryRequest  $request
+     * @param  \App\Models\SellerCategory  $sellerCategory
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateCategoryRequest $request, Category $category)
+    public function update(UpdateSellerCategoryRequest $request, SellerCategory $sellerCategory)
     {
         //
     }
@@ -105,10 +93,10 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\SellerCategory  $sellerCategory
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy(SellerCategory $sellerCategory)
     {
         //
     }

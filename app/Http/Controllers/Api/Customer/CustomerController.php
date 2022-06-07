@@ -89,6 +89,7 @@ class CustomerController extends Controller
         }
 
         $validator = Validator::make($request->all(), [
+            'name' => 'min:3',
             'bio' => 'nullable|min:5',
             'customer_img' => 'image|max:5050|nullable|mimes:jpg,jpeg,png',
         ]);
@@ -114,6 +115,7 @@ class CustomerController extends Controller
         }
 
         $customer->update([
+            'name' => $request->name,
             'bio' => $request->bio,
             'customer_img' => $imageName,
         ]);

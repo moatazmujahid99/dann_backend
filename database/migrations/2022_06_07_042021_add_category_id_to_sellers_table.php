@@ -16,7 +16,7 @@ class AddCategoryIdToSellersTable extends Migration
         Schema::table('sellers', function (Blueprint $table) {
             $table->unsignedBigInteger('category_id')->nullable();
             $table->foreign('category_id')
-                ->references('id')->on('categories')
+                ->references('id')->on('seller_categories')
                 ->onDelete('set null');
         });
     }
