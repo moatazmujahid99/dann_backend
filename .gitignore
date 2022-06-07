@@ -3,7 +3,6 @@
 /public/storage
 /public/images/sellers/*
 /public/images/customers/*
-/public/upload
 /storage/*.key
 /vendor
 .env
