@@ -2,9 +2,9 @@
 /public/hot
 /public/storage
 /storage/*.key
-!/public/images/customers/*
-!/public/images/posts/*
-!/public/images/sellers/*
+/public/images/customers/*
+/public/images/posts/*
+/public/images/sellers/*
 /vendor
 .env
 .env.backup
