@@ -20,4 +20,14 @@ class Seller extends Authenticatable
     {
         return $this->belongsTo(SellerCategory::class);
     }
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class)->orderByDesc('updated_at');
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }

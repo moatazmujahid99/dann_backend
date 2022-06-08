@@ -7,10 +7,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Resources\customer\CustomerResource;
 use App\Http\Resources\customer\CustomersDisplay;
-use Illuminate\Support\Facades\File;
 
 class CustomerController extends Controller
 {
@@ -101,23 +102,32 @@ class CustomerController extends Controller
             ]);
         }
 
+        if (Auth::guard('customer-api')->user()->id != $id) {
+            return response()->json([
+                "message" => "You are not authorized to update this profile",
+                "status" => 403
+            ]);
+        }
+
         if (isset($request->customer_img)) {
-            $imageName = time() . '-' . $customer->name . '.' . $request->customer_img->extension();
-            $request->customer_img->move(public_path('images/customers'), $imageName);
+            $image = $request->file('customer_img');
+            $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
+            Image::make($image)->save('images/customers/' . $name_gen);
+
             if (isset($customer->customer_img)) {
                 $imagePath = public_path('images/customers/' . $customer->customer_img);
                 File::delete($imagePath);
             }
         } elseif (isset($customer->customer_img) && !(isset($request->customer_img))) {
-            $imageName = $customer->customer_img;
+            $name_gen = $customer->customer_img;
         } else {
-            $imageName = null;
+            $name_gen = null;
         }
 
         $customer->update([
             'name' => $request->name,
             'bio' => $request->bio,
-            'customer_img' => $imageName,
+            'customer_img' => $name_gen,
         ]);
 
         return response()->json([

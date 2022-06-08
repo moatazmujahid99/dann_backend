@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\AuthController;
 use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\Api\PostController;
+use App\Http\Controllers\Api\TagController;
+use App\Http\Controllers\Api\CommentController;
 
 
 // omar - check
@@ -48,7 +51,6 @@ Route::get('/customer/{customer_id}', [CustomerController::class, 'show']);
 Route::post('/create/category/for_sellers', [SellerCategoryController::class, 'store']);
 Route::get('/sellers/categories', [SellerCategoryController::class, 'index']);
 Route::get('/who_loggedin', function () {
-
     if (Auth::guard('seller-api')->check()) {
         return response()->json([
             'message' => "seller"
@@ -65,10 +67,15 @@ Route::get('/who_loggedin', function () {
     }
 });
 
+Route::post('/create/post', [PostController::class, 'store']);
+Route::post('/post/{post_id}/update', [PostController::class, 'update']);
+Route::post('/post/{post_id}/delete', [PostController::class, 'destroy']);
+Route::get('/posts/seller/{seller_id}', [PostController::class, 'viewSellerPosts']);
 
+Route::post('/create/tag/', [TagController::class, 'store']);
+Route::get('/tags', [TagController::class, 'index']);
 
-
-
+Route::post('/create/comment/for_post/{post_id}', [CommentController::class, 'store']);
 
 
 

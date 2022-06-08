@@ -85,7 +85,7 @@ class SellerCategoryController extends Controller
      * @param  \App\Models\SellerCategory  $sellerCategory
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateSellerCategoryRequest $request, SellerCategory $sellerCategory)
+    public function update(Request $request, SellerCategory $sellerCategory)
     {
         //
     }

@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers\Api\Seller;
 
-use App\Models\Seller;
 use App\Models\User;
+use App\Models\Seller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\URL;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\URL;
+use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Validator;
-use App\Http\Resources\seller\SellersDisplay;
 use App\Http\Resources\seller\SellerResource;
+use App\Http\Resources\seller\SellersDisplay;
 
 
 class SellerController extends Controller
@@ -93,6 +94,7 @@ class SellerController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         $seller = Seller::find($id);
 
         if (!$seller) {
@@ -106,7 +108,7 @@ class SellerController extends Controller
             'address' => 'nullable|min:4|max:250',
             'phone_number' => 'nullable|digits:11',
             'seller_img' => 'image|max:5050|nullable|mimes:jpg,jpeg,png',
-            'category_id' => 'nullable|integer'
+            'category_id' => 'nullable|integer|exists:seller_categories,id'
         ]);
 
         if ($validator->fails()) {
@@ -116,23 +118,33 @@ class SellerController extends Controller
             ]);
         }
 
+        if (Auth::guard('seller-api')->user()->id != $id) {
+            return response()->json([
+                "message" => "You are not authorized to update this profile",
+                "status" => 403
+            ]);
+        }
+
+
         if (isset($request->seller_img)) {
-            $imageName = time() . '-' . $seller->name . '.' . $request->seller_img->extension();
-            $request->seller_img->move(public_path('images/sellers'), $imageName);
+            $image = $request->file('seller_img');
+            $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
+            Image::make($image)->save('images/sellers/' . $name_gen);
+
             if (isset($seller->seller_img)) {
                 $imagePath = public_path('images/sellers/' . $seller->seller_img);
                 File::delete($imagePath);
             }
         } elseif (isset($seller->seller_img) && !(isset($request->seller_img))) {
-            $imageName = $seller->seller_img;
+            $name_gen = $seller->seller_img;
         } else {
-            $imageName = null;
+            $name_gen = null;
         }
         $seller->update([
             'address' => $request->address,
             'phone_number' => $request->phone_number,
             'category_id' => $request->category_id,
-            'seller_img' => $imageName,
+            'seller_img' => $name_gen,
 
         ]);
 
