@@ -28,9 +28,17 @@ class AddCategoryIdToSellersTable extends Migration
      */
     public function down()
     {
-        Schema::table('sellers', function (Blueprint $table) {
+        Schema::disableForeignKeyConstraints();
+        Schema::table('sellers', function(Blueprint $table){
             $table->dropForeign(['category_id']);
-            $table->dropColumn('category_id');
         });
+
+        Schema::dropIfExists('sellers');
+        Schema::enableForeignKeyConstraints();
+
+        // Schema::table('sellers', function (Blueprint $table) {
+        //     $table->dropForeign(['category_id']);
+        //     $table->dropColumn('category_id');
+        // });
     }
 }
