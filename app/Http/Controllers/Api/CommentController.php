@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Resources\comment\CommentResource;
 
 class CommentController extends Controller
 {
@@ -21,6 +22,31 @@ class CommentController extends Controller
         //
     }
 
+    public function viewPostComments($post_id)
+    {
+
+        $post = Post::find($post_id);
+
+        if (!$post) {
+            return response()->json([
+                'message' => "post not found",
+                'status' => 404
+            ]);
+        }
+
+        if (Auth::guard('seller-api')->check() || Auth::guard('customer-api')->check()) {
+
+            return response()->json([
+                'comments' => CommentResource::collection($post->comments),
+                'status' => 200
+            ]);
+        } else {
+            return response()->json([
+                "message" => "Unauthenticated.",
+                "status" => 401
+            ]);
+        }
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -73,7 +99,7 @@ class CommentController extends Controller
 
         $arrayData = [
             'id' => $comment->id,
-            'description' => $comment->comment_text,
+            'comment_text' => $comment->comment_text,
             'post' => [
                 'id' => $comment->post->id,
                 'description' => $comment->post->description

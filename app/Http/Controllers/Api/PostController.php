@@ -5,12 +5,14 @@ namespace App\Http\Controllers\Api;
 use App\Models\Post;
 use App\Models\Seller;
 
+use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image;
+use App\Http\Resources\tag\TagResource;
 use App\Http\Resources\post\PostResource;
 use App\Http\Resources\post\PostsDisplay;
 use Illuminate\Support\Facades\Validator;
@@ -25,6 +27,37 @@ class PostController extends Controller
     public function index()
     {
         //
+    }
+
+    public function viewCustomerPosts($customer_id)
+    {
+        $customer = Customer::find($customer_id);
+
+        if (!$customer) {
+            return response()->json([
+                'message' => "customer not found",
+                'status' => 404
+            ]);
+        }
+
+        if (Auth::guard('seller-api')->check() || Auth::guard('customer-api')->check()) {
+
+            return response()->json([
+                'posts' => PostsDisplay::collection($customer->posts),
+                'customer' => [
+                    'id' => $customer->id,
+                    'name' => $customer->name,
+                    'image_url' => $customer->customer_img ? URL::to('images/customers/' . $customer->customer_img) : null
+                ],
+                'status' => 200
+            ]);
+        } else {
+
+            return response()->json([
+                "message" => "Unauthenticated.",
+                "status" => 401
+            ]);
+        }
     }
 
     public function viewSellerPosts($seller_id)
@@ -128,9 +161,35 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
+    public function show($id)
     {
-        //
+        $post = Post::find($id);
+
+        if (!$post) {
+            return response()->json([
+                'message' => "post not found",
+                'status' => 404
+            ]);
+        }
+
+        if (Auth::guard('seller-api')->check() || Auth::guard('customer-api')->check()) {
+
+            return response()->json([
+                'post' => [
+                    'id' => $post->id,
+                    'description' => $post->description,
+                    'image_url' => $post->post_img ? URL::to('images/posts/' . $post->post_img) : null,
+                    'tags' => TagResource::collection($post->tags),
+                ],
+                'status' => 200
+            ]);
+        } else {
+
+            return response()->json([
+                "message" => "Unauthenticated.",
+                "status" => 401
+            ]);
+        }
     }
 
     /**

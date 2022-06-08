@@ -12,6 +12,7 @@ use App\Http\Controllers\Api\TagController;
 use App\Http\Controllers\Api\CommentController;
 
 
+
 // omar - check
 use App\Http\Controllers\User\ResetController;
 use App\Http\Controllers\User\ForgetController;
@@ -41,15 +42,19 @@ use App\Http\Controllers\Api\Customer\CustomerController;
 
 // Moataz
 
-//(seller or customer) only can access those routes
+//-----------(seller or customer) only can access those routes------------
+
+//sellers
 Route::get('/sellers', [SellerController::class, 'index']);
 Route::get('/seller/{seller_id}', [SellerController::class, 'show']);
+
+//customers
 Route::get('/customers', [CustomerController::class, 'index']);
 Route::get('/customer/{customer_id}', [CustomerController::class, 'show']);
 
-//anyone acccess those routes
-Route::post('/create/category/for_sellers', [SellerCategoryController::class, 'store']);
-Route::get('/sellers/categories', [SellerCategoryController::class, 'index']);
+//--------------anyone acccess those routes-------------------
+
+//check for who is logged in
 Route::get('/who_loggedin', function () {
     if (Auth::guard('seller-api')->check()) {
         return response()->json([
@@ -67,17 +72,28 @@ Route::get('/who_loggedin', function () {
     }
 });
 
+// sellers categories
+Route::post('/create/category/for_sellers', [SellerCategoryController::class, 'store']);
+Route::get('/sellers/categories', [SellerCategoryController::class, 'index']);
+
+
+//posts
 Route::post('/create/post', [PostController::class, 'store']);
 Route::post('/post/{post_id}/update', [PostController::class, 'update']);
 Route::post('/post/{post_id}/delete', [PostController::class, 'destroy']);
 Route::get('/posts/seller/{seller_id}', [PostController::class, 'viewSellerPosts']);
+Route::get('/posts/customer/{customer_id}', [PostController::class, 'viewCustomerPosts']);
+Route::get('/post/{post_id}', [PostController::class, 'show']);
+Route::get('/posts/tag/{tag_id}', [TagController::class, 'fliterPostsByTag']);
 
+
+//tags
 Route::post('/create/tag/', [TagController::class, 'store']);
 Route::get('/tags', [TagController::class, 'index']);
 
+//comments
 Route::post('/create/comment/for_post/{post_id}', [CommentController::class, 'store']);
-
-
+Route::get('/post/{post_id}/comments', [CommentController::class, 'viewPostComments']);
 
 
 

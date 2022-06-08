@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Resources\post\FliteredPosts;
 
 class TagController extends Controller
 {
@@ -24,6 +26,32 @@ class TagController extends Controller
             'tags' => $tags,
             'status' => 200
         ]);
+    }
+
+    public function fliterPostsByTag($tag_id)
+    {
+        $tag = Tag::find($tag_id);
+
+        if (!$tag) {
+            return response()->json([
+                'message' => "tag not found",
+                'status' => 404
+            ]);
+        }
+
+        if (Auth::guard('seller-api')->check() || Auth::guard('customer-api')->check()) {
+
+            return response()->json([
+                'posts' => FliteredPosts::collection($tag->posts),
+                'status' => 200
+            ]);
+        } else {
+
+            return response()->json([
+                "message" => "Unauthenticated.",
+                "status" => 401
+            ]);
+        }
     }
 
     /**
