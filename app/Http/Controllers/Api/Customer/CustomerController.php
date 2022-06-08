@@ -112,6 +112,7 @@ class CustomerController extends Controller
         if (isset($request->customer_img)) {
             $image = $request->file('customer_img');
             $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
+            File::makeDirectory('images/customers');
             Image::make($image)->save('images/customers/' . $name_gen);
 
             if (isset($customer->customer_img)) {

@@ -129,6 +129,7 @@ class SellerController extends Controller
         if (isset($request->seller_img)) {
             $image = $request->file('seller_img');
             $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
+            File::makeDirectory('images/sellers');
             Image::make($image)->save('images/sellers/' . $name_gen);
 
             if (isset($seller->seller_img)) {
