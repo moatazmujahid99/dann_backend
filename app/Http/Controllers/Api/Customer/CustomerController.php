@@ -111,24 +111,27 @@ class CustomerController extends Controller
 
         if (isset($request->customer_img)) {
             $image = $request->file('customer_img');
-            $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
-            File::makeDirectory('images/customers');
-            Image::make($image)->save('images/customers/' . $name_gen);
+            $name_gen = $id . '.' . $image->getClientOriginalExtension();
+            if (!File::exists('images/customers')) {
+                File::makeDirectory('images/customers');
+            }
+            $image_resize = Image::make($image);
+            //$image_resize->resize(300, 300);
+            $image_resize->save('images/customers/' . $name_gen);
 
             if (isset($customer->customer_img)) {
                 $imagePath = public_path('images/customers/' . $customer->customer_img);
                 File::delete($imagePath);
             }
-        } elseif (isset($customer->customer_img) && !(isset($request->customer_img))) {
-            $name_gen = $customer->customer_img;
-        } else {
-            $name_gen = null;
+
+            $customer->update([
+                'customer_img' => $name_gen,
+            ]);
         }
 
         $customer->update([
             'name' => $request->name,
             'bio' => $request->bio,
-            'customer_img' => $name_gen,
         ]);
 
         return response()->json([

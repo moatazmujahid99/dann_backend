@@ -129,24 +129,23 @@ class SellerController extends Controller
         if (isset($request->seller_img)) {
             $image = $request->file('seller_img');
             $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
-            File::makeDirectory('images/sellers');
+            if (!File::exists('images/sellers')) {
+                File::makeDirectory('images/sellers');
+            }
             Image::make($image)->save('images/sellers/' . $name_gen);
 
             if (isset($seller->seller_img)) {
                 $imagePath = public_path('images/sellers/' . $seller->seller_img);
                 File::delete($imagePath);
             }
-        } elseif (isset($seller->seller_img) && !(isset($request->seller_img))) {
-            $name_gen = $seller->seller_img;
-        } else {
-            $name_gen = null;
+            $seller->update([
+                'seller_img' => $name_gen,
+            ]);
         }
         $seller->update([
             'address' => $request->address,
             'phone_number' => $request->phone_number,
             'category_id' => $request->category_id,
-            'seller_img' => $name_gen,
-
         ]);
 
         return response()->json([

@@ -262,22 +262,23 @@ class PostController extends Controller
             // $request->post_img->move(public_path('images/posts'), $imageName);
             $image = $request->file('post_img');
             $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
+            if (!File::exists('images/posts')) {
+                File::makeDirectory('images/posts');
+            }
             Image::make($image)->save('images/posts/' . $name_gen);
 
             if (isset($post->post_img)) {
                 $imagePath = public_path('images/posts/' . $post->post_img);
                 File::delete($imagePath);
             }
-        } elseif (isset($post->post_img) && !(isset($request->post_img))) {
-            $name_gen = $post->post_img;
-        } else {
-            $name_gen = null;
+            $post->update([
+                'post_img' => $name_gen,
+
+            ]);
         }
 
         $post->update([
             'description' => $request->description,
-            'post_img' => $name_gen,
-
         ]);
 
 
