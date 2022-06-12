@@ -24,9 +24,9 @@ class SellerController extends Controller
      */
     public function index()
     {
-        if (Auth::guard('seller-api')->check()) {
+        if (Auth::guard('seller-api')->check() === true) {
             $sellers = Seller::where('id', '!=', Auth::guard('seller-api')->user()->id)->get();
-        } elseif (Auth::guard('customer-api')->check()) {
+        } elseif (Auth::guard('customer-api')->check() === true) {
             $sellers = Seller::all();
         } else {
             return response()->json([

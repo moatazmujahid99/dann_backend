@@ -8,9 +8,20 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 
-class Seller extends Authenticatable
+
+use Hypefactors\Laravel\Follow\Traits\CanFollow;
+use Hypefactors\Laravel\Follow\Contracts\CanFollowContract;
+use Hypefactors\Laravel\Follow\Traits\CanBeFollowed;
+use Hypefactors\Laravel\Follow\Contracts\CanBeFollowedContract;
+
+class Seller extends Authenticatable implements CanFollowContract, CanBeFollowedContract
 {
     use HasFactory, Notifiable, HasApiTokens;
+
+    use CanFollow, CanBeFollowed;
+
+    protected $primaryKey = 'id';
+
     protected $fillable = [
         'name', 'email', 'password', 'seller_img', 'phone_number',
         'address', 'category_id',

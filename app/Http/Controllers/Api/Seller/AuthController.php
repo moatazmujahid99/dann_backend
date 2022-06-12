@@ -68,6 +68,7 @@ class AuthController extends Controller
 
             $seller = Auth::guard('seller')->user();
 
+
             $token = $seller->createToken('app')->accessToken;
 
             return response()->json([

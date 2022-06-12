@@ -21,7 +21,7 @@ class SellerResource extends JsonResource
             'email' => $this->email,
             'phone_number' => $this->phone_number ?? null,
             'address' => $this->address ?? null,
-            'category' => $this->category->category_name ?? null,
+            'category' => $this->category->name ?? null,
             'image_url' => $this->seller_img ? URL::to('images/sellers/' . $this->seller_img) : null,
             'posts_count' => 0,
             'products_count' => 0,

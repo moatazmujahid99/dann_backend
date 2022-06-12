@@ -10,6 +10,7 @@ use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\Api\TagController;
 use App\Http\Controllers\Api\CommentController;
+use App\Http\Controllers\Api\FollowController;
 
 
 
@@ -95,9 +96,26 @@ Route::get('/tags', [TagController::class, 'index']);
 Route::post('/create/comment/for_post/{post_id}', [CommentController::class, 'store']);
 Route::get('/post/{post_id}/comments', [CommentController::class, 'viewPostComments']);
 
+Route::post('/follow/seller/{seller_id}', [FollowController::class, 'followSeller']);
+Route::post('/follow/customer/{customer_id}', [FollowController::class, 'followCustomer']);
+
+Route::post('/unfollow/seller/{seller_id}', [FollowController::class, 'unfollowSeller']);
+Route::post('/unfollow/customer/{customer_id}', [FollowController::class, 'unfollowCustomer']);
+
+Route::get('/isfollowing/seller/{seller_id}', [FollowController::class, 'isfollowingSeller']);
+Route::get('/isfollowing/customer/{customer_id}', [FollowController::class, 'isfollowingCustomer']);
+
+
+Route::get('/followers/type/seller', [FollowController::class, 'followersTypeSeller']);
+Route::get('/followers/type/customer', [FollowController::class, 'followersTypeCustomer']);
+
+Route::get('/followings/type/seller', [FollowController::class, 'followingsTypeSeller']);
+Route::get('/followings/type/customer', [FollowController::class, 'followingsTypeCustomer']);
+
 
 
 /*
+
 |-------------------------------------------------------------------------
 | Omar
 |-------------------------------------------------------------------------
