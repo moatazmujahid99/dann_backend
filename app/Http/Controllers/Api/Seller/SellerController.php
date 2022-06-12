@@ -130,7 +130,7 @@ class SellerController extends Controller
             $image = $request->file('seller_img');
             $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
             if (!File::exists('images/sellers')) {
-                File::makeDirectory('images/sellers');
+                File::makeDirectory(public_path() . '/' . 'images/sellers', 0777, true);
             }
             Image::make($image)->save('images/sellers/' . $name_gen);
 

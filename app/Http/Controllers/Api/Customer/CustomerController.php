@@ -111,9 +111,9 @@ class CustomerController extends Controller
 
         if (isset($request->customer_img)) {
             $image = $request->file('customer_img');
-            $name_gen = $id . '.' . $image->getClientOriginalExtension();
+            $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
             if (!File::exists('images/customers')) {
-                File::makeDirectory('images/customers');
+                File::makeDirectory(public_path() . '/' . 'images/customers', 0777, true);
             }
             $image_resize = Image::make($image);
             //$image_resize->resize(300, 300);

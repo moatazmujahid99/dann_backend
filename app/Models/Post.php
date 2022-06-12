@@ -5,9 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Post extends Model
+
+use Hypefactors\Laravel\Follow\Traits\CanFollow;
+use Hypefactors\Laravel\Follow\Contracts\CanFollowContract;
+use Hypefactors\Laravel\Follow\Traits\CanBeFollowed;
+use Hypefactors\Laravel\Follow\Contracts\CanBeFollowedContract;
+
+class Post extends Model implements CanFollowContract, CanBeFollowedContract
 {
     use HasFactory;
+
+    use CanFollow, CanBeFollowed;
+
     protected $fillable = [
         'description', 'post_img', 'seller_id', 'customer_id'
     ];

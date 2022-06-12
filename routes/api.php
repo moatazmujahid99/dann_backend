@@ -11,7 +11,7 @@ use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\Api\TagController;
 use App\Http\Controllers\Api\CommentController;
 use App\Http\Controllers\Api\FollowController;
-
+use App\Http\Controllers\Api\LikeController;
 
 
 // omar - check
@@ -111,6 +111,18 @@ Route::get('/followers/type/customer', [FollowController::class, 'followersTypeC
 
 Route::get('/followings/type/seller', [FollowController::class, 'followingsTypeSeller']);
 Route::get('/followings/type/customer', [FollowController::class, 'followingsTypeCustomer']);
+
+
+
+//like
+
+Route::post('/like/post/{post_id}', [LikeController::class, 'likePost']);
+
+Route::post('/unlike/post/{post_id}', [LikeController::class, 'unlikePost']);
+
+Route::get('/islike/post/{post_id}', [LikeController::class, 'isLikePost']);
+
+Route::get('/likers/post/{post_id}', [LikeController::class, 'getUsersLikePost']);
 
 
 

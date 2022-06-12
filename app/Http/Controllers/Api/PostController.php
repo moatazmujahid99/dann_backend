@@ -119,7 +119,7 @@ class PostController extends Controller
             $image = $request->file('post_img');
             $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
             if (!File::exists('images/posts')) {
-                File::makeDirectory('images/posts');
+                File::makeDirectory(public_path() . '/' . 'images/posts', 0777, true);
             }
             Image::make($image)->save('images/posts/' . $name_gen);
         } else {
