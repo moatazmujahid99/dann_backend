@@ -25,7 +25,7 @@ class TagController extends Controller
         return response()->json([
             'tags' => $tags,
             'status' => 200
-        ]);
+        ],200);
     }
 
     public function fliterPostsByTag($tag_id)
@@ -36,7 +36,7 @@ class TagController extends Controller
             return response()->json([
                 'message' => "tag not found",
                 'status' => 404
-            ]);
+            ],404);
         }
 
         if (Auth::guard('seller-api')->check() || Auth::guard('customer-api')->check()) {
@@ -44,13 +44,13 @@ class TagController extends Controller
             return response()->json([
                 'posts' => FliteredPosts::collection($tag->posts),
                 'status' => 200
-            ]);
+            ],200);
         } else {
 
             return response()->json([
                 "message" => "Unauthenticated.",
                 "status" => 401
-            ]);
+            ],401);
         }
     }
 
@@ -70,7 +70,7 @@ class TagController extends Controller
             'message' => 'tag is created successfully',
             'tag' => $tag->name,
             'status' => 201
-        ]);
+        ],201);
     }
 
     /**

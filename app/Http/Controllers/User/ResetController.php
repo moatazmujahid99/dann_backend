@@ -5,7 +5,8 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Auth;
-use App\Models\User;
+//use App\Models\User;
+use App\Models\Customer;
 
 use App\Http\Requests\ResetRequest;
 use DB;
@@ -33,7 +34,7 @@ class ResetController extends Controller
             ],401);
          }
 
-         DB::table('users')->where('email',$email)->update(['password' => $password]);
+         DB::table('customers')->where('email',$email)->update(['password' => $password]);
          DB::table('password_resets')->where('email',$email)->delete();
 
          return response([

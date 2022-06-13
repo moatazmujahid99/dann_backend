@@ -5,7 +5,8 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Auth;
-use App\Models\User;
+//use App\Models\User;
+use App\Models\Customer;
 
 use App\Http\Requests\ForgetRequest;
 use DB;
@@ -18,7 +19,7 @@ class ForgetController extends Controller
     public function ForgetPassword(ForgetRequest $request){
         $email = $request->email;
 
-        if (User::where('email',$email)->doesntExist()) {
+        if (Customer::where('email',$email)->doesntExist()) {
             return response([
                 'message' => 'Email Invalid'
             ],401);

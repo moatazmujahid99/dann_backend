@@ -27,7 +27,7 @@ class AuthController extends Controller
             return response()->json([
                 'error' => $validator->errors()->all(),
                 'status' => 400
-            ]);
+            ],400);
         }
 
         $seller = Seller::create([
@@ -52,7 +52,7 @@ class AuthController extends Controller
                 'password' => $seller->password
             ],
             'status' => 201
-        ]);
+        ],201);
     }
 
     public function login(Request $request)
@@ -66,7 +66,7 @@ class AuthController extends Controller
             return response()->json([
                 'error' => $validator->errors()->all(),
                 'status' => 400
-            ]);
+            ],400); 
         }
 
         if (Auth::guard('seller')->attempt($request->only('email', 'password'))) {
@@ -90,13 +90,13 @@ class AuthController extends Controller
                     'password' => $seller->password
                 ],
                 'status' => 200
-            ]);
+            ],200);
         }
 
         return response()->json([
             'message' => 'Invalid Email Or Password',
             'status' => 401
-        ]);
+        ],401);
     }
 
 
