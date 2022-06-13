@@ -16,6 +16,8 @@ use App\Http\Resources\tag\TagResource;
 use App\Http\Resources\post\PostResource;
 use App\Http\Resources\post\PostsDisplay;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Resources\post\FliteredPosts;
+use App\Http\Resources\post\FollowingsResource;
 
 class PostController extends Controller
 {
@@ -24,9 +26,179 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function getFollowingsPosts()
+    {
+        $arr = collect();
+
+        if (Auth::guard('seller-api')->check()) {
+            $loggedInSeller_id = Auth::guard('seller-api')->user()->id;
+            $loggedInSeller = Seller::find($loggedInSeller_id);
+            if (
+                $loggedInSeller->followings()->whereFollowableType(Customer::class)->count() > 0
+                || $loggedInSeller->followings()->whereFollowableType(Seller::class)->count() > 0
+            ) {
+                $followings = $loggedInSeller->followings;
+                //------------------------------------------------------------------------
+                foreach ($followings as $following) {
+                    if ($following->followable_type == 'App\Models\Seller') {
+
+                        $seller = Seller::find($following->followable_id);
+                        foreach ($seller->posts as $post) {
+                            $array = [
+                                'id' => $post->id,
+                                'description' => $post->description,
+                                'image_url' => $post->post_img ? URL::to('images/posts/' . $post->post_img) : null,
+                                'tags' => TagResource::collection($post->tags),
+                                'comments_count' => $post->comments->count(),
+                                'updated_at' => $post->updated_at,
+                                'likes_count' => $post->followers()->count(),
+                                'created_by' => [
+                                    "type" => "seller",
+                                    "id" => $post->seller_id,
+                                    "name" => $post->seller->name,
+                                    "image_url" => $post->seller->seller_img ? URL::to('images/sellers/' . $post->seller->seller_img) : null
+                                ]
+                            ];
+                            $arr->push($array);
+                        }
+                    } elseif ($following->followable_type == 'App\Models\Customer') {
+
+                        $customer = Customer::find($following->followable_id);
+                        foreach ($customer->posts as $post) {
+                            $array = [
+                                'id' => $post->id,
+                                'description' => $post->description,
+                                'image_url' => $post->post_img ? URL::to('images/posts/' . $post->post_img) : null,
+                                'tags' => TagResource::collection($post->tags),
+                                'comments_count' => $post->comments->count(),
+                                'updated_at' => $post->updated_at,
+                                'likes_count' => $post->followers()->count(),
+                                'created_by' => [
+                                    "type" => "customer",
+                                    "id" => $post->customer_id,
+                                    "name" => $post->customer->name,
+                                    "image_url" => $post->customer->customer_img ? URL::to('images/customers/' . $post->customer->customer_img) : null
+                                ]
+                            ];
+                            $arr->push($array);
+                        }
+                    }
+                }
+
+                $arr = $arr->sortByDesc('updated_at');
+                $posts = collect();
+                foreach ($arr as $r) {
+                    $posts->push($r);
+                }
+                //---------------------------------------------------------------------------
+                return response()->json([
+                    "posts" => $posts,
+                    "status" => 200
+                ], 200);
+            } else {
+                return response()->json([
+                    "posts" => [],
+                    "status" => 200
+                ], 200);
+            }
+        } elseif (Auth::guard('customer-api')->check()) {
+            $loggedInCustomer_id = Auth::guard('customer-api')->user()->id;
+            $loggedInCustomer = Customer::find($loggedInCustomer_id);
+
+            if (
+                $loggedInCustomer->followings()->whereFollowableType(Customer::class)->count() > 0
+                || $loggedInCustomer->followings()->whereFollowableType(Seller::class)->count() > 0
+            ) {
+                $followings = $loggedInCustomer->followings;
+                //------------------------------------------------------------------------
+                foreach ($followings as $following) {
+                    if ($following->followable_type == 'App\Models\Seller') {
+
+                        $seller = Seller::find($following->followable_id);
+                        foreach ($seller->posts as $post) {
+                            $array = [
+                                'id' => $post->id,
+                                'description' => $post->description,
+                                'image_url' => $post->post_img ? URL::to('images/posts/' . $post->post_img) : null,
+                                'tags' => TagResource::collection($post->tags),
+                                'comments_count' => $post->comments->count(),
+                                'updated_at' => $post->updated_at,
+                                'likes_count' => $post->followers()->count(),
+                                'created_by' => [
+                                    "type" => "seller",
+                                    "id" => $post->seller_id,
+                                    "name" => $post->seller->name,
+                                    "image_url" => $post->seller->seller_img ? URL::to('images/sellers/' . $post->seller->seller_img) : null
+                                ]
+                            ];
+                            $arr->push($array);
+                        }
+                    } elseif ($following->followable_type == 'App\Models\Customer') {
+
+                        $customer = Customer::find($following->followable_id);
+                        foreach ($customer->posts as $post) {
+                            $array = [
+                                'id' => $post->id,
+                                'description' => $post->description,
+                                'image_url' => $post->post_img ? URL::to('images/posts/' . $post->post_img) : null,
+                                'tags' => TagResource::collection($post->tags),
+                                'comments_count' => $post->comments->count(),
+                                'updated_at' => $post->updated_at,
+                                'likes_count' => $post->followers()->count(),
+                                'created_by' => [
+                                    "type" => "customer",
+                                    "id" => $post->customer_id,
+                                    "name" => $post->customer->name,
+                                    "image_url" => $post->customer->customer_img ? URL::to('images/customers/' . $post->customer->customer_img) : null
+                                ]
+                            ];
+                            $arr->push($array);
+                        }
+                    }
+                }
+
+                $arr = $arr->sortByDesc('updated_at');
+                $posts = collect();
+                foreach ($arr as $r) {
+                    $posts->push($r);
+                }
+                //---------------------------------------------------------------------------
+                return response()->json([
+                    "posts" => $posts,
+                    "status" => 200
+                ], 200);
+            } else {
+                return response()->json([
+                    "followings" => [],
+                    "status" => 200
+                ], 200);
+            }
+        } else {
+            return response()->json([
+                "message" => "Unauthenticated.",
+                "status" => 401
+            ], 401);
+        }
+    }
     public function index()
     {
-        //
+
+        if (Auth::guard('seller-api')->check() || Auth::guard('customer-api')->check()) {
+
+            $posts = Post::orderBy('updated_at', 'DESC')->get();
+
+            return response()->json([
+                'posts' => FliteredPosts::collection($posts),
+                'status' => 200
+            ], 200);
+        } else {
+
+            return response()->json([
+                "message" => "Unauthenticated.",
+                "status" => 401
+            ], 401);
+        }
     }
 
     public function viewCustomerPosts($customer_id)
@@ -182,6 +354,7 @@ class PostController extends Controller
                     'description' => $post->description,
                     'image_url' => $post->post_img ? URL::to('images/posts/' . $post->post_img) : null,
                     'tags' => TagResource::collection($post->tags),
+                    'likes_count' => $post->followers()->count()
                 ],
                 'status' => 200
             ], 200);
@@ -265,7 +438,7 @@ class PostController extends Controller
             $image = $request->file('post_img');
             $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
             if (!File::exists('images/posts')) {
-                File::makeDirectory('images/posts');
+                File::makeDirectory(public_path() . '/' . 'images/posts', 0777, true);
             }
             Image::make($image)->save('images/posts/' . $name_gen);
 
@@ -357,5 +530,70 @@ class PostController extends Controller
             'deleted_post' => new PostResource($post),
             'status' => 200
         ], 200);
+    }
+
+    public function deletePostImage($id)
+    {
+
+        $post = Post::find($id);
+
+        if (!$post) {
+            return response()->json([
+                'message' => "post not found",
+                'status' => 404
+            ], 404);
+        }
+
+
+        if (!(Auth::guard('seller-api')->check() || Auth::guard('customer-api')->check())) {
+
+            return response()->json([
+                "message" => "Unauthenticated.",
+                "status" => 401
+            ], 401);
+        }
+
+        if ((Auth::guard('seller-api')->check() && $post->seller_id == null)
+            || (Auth::guard('customer-api')->check() && $post->customer_id == null)
+        ) {
+            return response()->json([
+                "message" => "You are not authorized to delete this image",
+                "status" => 403
+            ], 403);
+        } else {
+            if (Auth::guard('seller-api')->check()) {
+                if (Auth::guard('seller-api')->user()->id != $post->seller_id) {
+                    return response()->json([
+                        "message" => "You are not authorized to delete this image",
+                        "status" => 403
+                    ], 403);
+                }
+            } elseif (Auth::guard('customer-api')->check()) {
+                if (Auth::guard('customer-api')->user()->id != $post->customer_id) {
+                    return response()->json([
+                        "message" => "You are not authorized to delete this image",
+                        "status" => 403
+                    ], 403);
+                }
+            }
+        }
+
+        if (isset($post->post_img)) {
+            $imagePath = public_path('images/posts/' . $post->post_img);
+            File::delete($imagePath);
+            $post->update([
+                'post_img' => null,
+
+            ]);
+            return response()->json([
+                'message' => "image is deleted successfully",
+                'status' => 200
+            ], 200);
+        } else {
+            return response()->json([
+                'message' => "there is no image for this post",
+                'status' => 400
+            ], 400);
+        }
     }
 }

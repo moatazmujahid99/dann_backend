@@ -21,4 +21,5 @@ Route::post('customer/login', [AuthController::class, 'login'])->name('customerL
 
 Route::group(['middleware' => 'auth:customer-api'], function () {
     Route::post('/customer/{customer_id}/update', [CustomerController::class, 'update']);
+    Route::post('/customer/{customer_id}/image/delete', [CustomerController::class, 'deleteCustomerImage']);
 });

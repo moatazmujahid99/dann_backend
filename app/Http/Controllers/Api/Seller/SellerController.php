@@ -32,14 +32,14 @@ class SellerController extends Controller
             return response()->json([
                 "message" => "Unauthenticated.",
                 "status" => 401
-            ],401);
+            ], 401);
         }
 
 
         return response()->json([
             'sellers' => SellersDisplay::collection($sellers),
             'status' => 200
-        ],200);
+        ], 200);
     }
 
     /**
@@ -67,7 +67,7 @@ class SellerController extends Controller
             return response()->json([
                 'message' => "seller not found",
                 'status' => 404
-            ],404);
+            ], 404);
         }
 
         if (Auth::guard('seller-api')->check() || Auth::guard('customer-api')->check()) {
@@ -75,13 +75,13 @@ class SellerController extends Controller
             return response()->json([
                 'seller' => new SellerResource($seller),
                 'status' => 200
-            ],200);
+            ], 200);
         } else {
 
             return response()->json([
                 "message" => "Unauthenticated.",
                 "status" => 401
-            ],401);
+            ], 401);
         }
     }
 
@@ -101,7 +101,7 @@ class SellerController extends Controller
             return response()->json([
                 'message' => "seller not found",
                 'status' => 404
-            ],404);
+            ], 404);
         }
 
         $validator = Validator::make($request->all(), [
@@ -115,14 +115,14 @@ class SellerController extends Controller
             return response()->json([
                 'error' => $validator->errors()->all(),
                 'status' => 400
-            ],400);
+            ], 400);
         }
 
         if (Auth::guard('seller-api')->user()->id != $id) {
             return response()->json([
                 "message" => "You are not authorized to update this profile",
                 "status" => 403
-            ],403);
+            ], 403);
         }
 
 
@@ -160,7 +160,44 @@ class SellerController extends Controller
                 'image_url' => $seller->seller_img ? URL::to('images/sellers/' . $seller->seller_img) : null
             ],
             'status' => 200
-        ],200);
+        ], 200);
+    }
+
+    public function deleteSellerImage($seller_id)
+    {
+        $seller = Seller::find($seller_id);
+
+        if (!$seller) {
+            return response()->json([
+                'message' => "seller not found",
+                'status' => 404
+            ], 404);
+        }
+
+        if (Auth::guard('seller-api')->user()->id == $seller_id) {
+            if (isset($seller->seller_img)) {
+                $imagePath = public_path('images/sellers/' . $seller->seller_img);
+                File::delete($imagePath);
+                $seller->update([
+                    'seller_img' => null,
+
+                ]);
+                return response()->json([
+                    'message' => "image is deleted successfully",
+                    'status' => 200
+                ], 200);
+            } else {
+                return response()->json([
+                    'message' => "there is no image for this shop",
+                    'status' => 400
+                ], 400);
+            }
+        } else {
+            return response()->json([
+                "message" => "You are not authorized to delete this image",
+                "status" => 403
+            ], 403);
+        }
     }
 
     /**

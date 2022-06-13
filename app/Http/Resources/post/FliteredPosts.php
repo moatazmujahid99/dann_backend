@@ -23,6 +23,7 @@ class FliteredPosts extends JsonResource
             'tags' => TagResource::collection($this->tags),
             'comments_count' => $this->comments->count(),
             'updated_at' => $this->updated_at,
+            'likes_count' => $this->followers()->count()
         ];
 
         if ($this->seller_id != null) {

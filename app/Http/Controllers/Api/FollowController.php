@@ -23,12 +23,18 @@ class FollowController extends Controller
             return response()->json([
                 'message' => "seller not found",
                 'status' => 404
-            ]);
+            ], 404);
         }
 
 
         if (Auth::guard('seller-api')->check()) {
             $loggedInSeller_id = Auth::guard('seller-api')->user()->id;
+            if ($loggedInSeller_id == $seller_id) {
+                return response()->json([
+                    'message' => "you can't follow yourself",
+                    'status' => 400
+                ], 400);
+            }
             $loggedInSeller = Seller::find($loggedInSeller_id);
             $loggedInSeller->follow($seller);
         } elseif (Auth::guard('customer-api')->check()) {
@@ -39,14 +45,14 @@ class FollowController extends Controller
             return response()->json([
                 "message" => "Unauthenticated.",
                 "status" => 401
-            ]);
+            ], 401);
         }
 
 
         return response()->json([
             "message" => "now you are following shop " . $seller->name,
             "status" => 200
-        ]);
+        ], 200);
     }
 
     public function followCustomer($customer_id)
@@ -57,7 +63,7 @@ class FollowController extends Controller
             return response()->json([
                 'message' => "customer not found",
                 'status' => 404
-            ]);
+            ], 404);
         }
 
         if (Auth::guard('seller-api')->check()) {
@@ -66,19 +72,25 @@ class FollowController extends Controller
             $loggedInSeller->follow($customer);
         } elseif (Auth::guard('customer-api')->check()) {
             $loggedInCustomer_id = Auth::guard('customer-api')->user()->id;
+            if ($loggedInCustomer_id == $customer_id) {
+                return response()->json([
+                    'message' => "you can't follow yourself",
+                    'status' => 400
+                ], 400);
+            }
             $loggedInCustomer = Customer::find($loggedInCustomer_id);
             $loggedInCustomer->follow($customer);
         } else {
             return response()->json([
                 "message" => "Unauthenticated.",
                 "status" => 401
-            ]);
+            ], 401);
         }
 
         return response()->json([
             "message" => "now you are following customer " . $customer->name,
             "status" => 200
-        ]);
+        ], 200);
     }
 
     public function unfollowSeller($seller_id)
@@ -90,7 +102,7 @@ class FollowController extends Controller
             return response()->json([
                 'message' => "seller not found",
                 'status' => 404
-            ]);
+            ], 404);
         }
 
 
@@ -106,14 +118,14 @@ class FollowController extends Controller
             return response()->json([
                 "message" => "Unauthenticated.",
                 "status" => 401
-            ]);
+            ], 401);
         }
 
 
         return response()->json([
             "message" => "now you are not following shop " . $seller->name,
             "status" => 200
-        ]);
+        ], 200);
     }
 
     public function unfollowCustomer($customer_id)
@@ -124,7 +136,7 @@ class FollowController extends Controller
             return response()->json([
                 'message' => "customer not found",
                 'status' => 404
-            ]);
+            ], 404);
         }
 
         if (Auth::guard('seller-api')->check()) {
@@ -139,13 +151,13 @@ class FollowController extends Controller
             return response()->json([
                 "message" => "Unauthenticated.",
                 "status" => 401
-            ]);
+            ], 401);
         }
 
         return response()->json([
             "message" => "now you are not following customer " . $customer->name,
             "status" => 200
-        ]);
+        ], 200);
     }
 
     public function isfollowingSeller($seller_id)
@@ -157,7 +169,7 @@ class FollowController extends Controller
             return response()->json([
                 'message' => "seller not found",
                 'status' => 404
-            ]);
+            ], 404);
         }
 
 
@@ -168,12 +180,12 @@ class FollowController extends Controller
                 return response()->json([
                     "message" => "you are following this shop",
                     "status" => 200
-                ]);
+                ], 200);
             } else {
                 return response()->json([
                     "message" => "you are not following this shop",
                     "status" => 200
-                ]);
+                ], 200);
             }
         } elseif (Auth::guard('customer-api')->check()) {
             $loggedInCustomer_id = Auth::guard('customer-api')->user()->id;
@@ -182,18 +194,18 @@ class FollowController extends Controller
                 return response()->json([
                     "message" => "you are following this shop",
                     "status" => 200
-                ]);
+                ], 200);
             } else {
                 return response()->json([
                     "message" => "you are not following this shop",
                     "status" => 200
-                ]);
+                ], 200);
             }
         } else {
             return response()->json([
                 "message" => "Unauthenticated.",
                 "status" => 401
-            ]);
+            ], 401);
         }
     }
 
@@ -205,7 +217,7 @@ class FollowController extends Controller
             return response()->json([
                 'message' => "customer not found",
                 'status' => 404
-            ]);
+            ], 404);
         }
 
         if (Auth::guard('seller-api')->check()) {
@@ -215,12 +227,12 @@ class FollowController extends Controller
                 return response()->json([
                     "message" => "you are following this customer",
                     "status" => 200
-                ]);
+                ], 200);
             } else {
                 return response()->json([
                     "message" => "you are not following this customer",
                     "status" => 200
-                ]);
+                ], 200);
             }
         } elseif (Auth::guard('customer-api')->check()) {
             $loggedInCustomer_id = Auth::guard('customer-api')->user()->id;
@@ -229,18 +241,18 @@ class FollowController extends Controller
                 return response()->json([
                     "message" => "you are following this customer",
                     "status" => 200
-                ]);
+                ], 200);
             } else {
                 return response()->json([
                     "message" => "you are not following this customer",
                     "status" => 200
-                ]);
+                ], 200);
             }
         } else {
             return response()->json([
                 "message" => "Unauthenticated.",
                 "status" => 401
-            ]);
+            ], 401);
         }
     }
 
@@ -258,12 +270,12 @@ class FollowController extends Controller
                 return response()->json([
                     "followers" => SellersFollowers::collection($followers),
                     "status" => 200
-                ]);
+                ], 200);
             } else {
                 return response()->json([
                     "followers" => [],
                     "status" => 200
-                ]);
+                ], 200);
             }
         } elseif (Auth::guard('customer-api')->check()) {
             $loggedInCustomer_id = Auth::guard('customer-api')->user()->id;
@@ -276,18 +288,18 @@ class FollowController extends Controller
                 return response()->json([
                     "followers" => SellersFollowers::collection($followers),
                     "status" => 200
-                ]);
+                ], 200);
             } else {
                 return response()->json([
                     "followers" => [],
                     "status" => 200
-                ]);
+                ], 200);
             }
         } else {
             return response()->json([
                 "message" => "Unauthenticated.",
                 "status" => 401
-            ]);
+            ], 401);
         }
     }
     public function followersTypeCustomer()
@@ -304,12 +316,12 @@ class FollowController extends Controller
                 return response()->json([
                     "followers" => CustomersFollowers::collection($followers),
                     "status" => 200
-                ]);
+                ], 200);
             } else {
                 return response()->json([
                     "followers" => [],
                     "status" => 200
-                ]);
+                ], 200);
             }
         } elseif (Auth::guard('customer-api')->check()) {
             $loggedInCustomer_id = Auth::guard('customer-api')->user()->id;
@@ -322,18 +334,18 @@ class FollowController extends Controller
                 return response()->json([
                     "followers" => CustomersFollowers::collection($followers),
                     "status" => 200
-                ]);
+                ], 200);
             } else {
                 return response()->json([
                     "followers" => [],
                     "status" => 200
-                ]);
+                ], 200);
             }
         } else {
             return response()->json([
                 "message" => "Unauthenticated.",
                 "status" => 401
-            ]);
+            ], 401);
         }
     }
 
@@ -351,12 +363,12 @@ class FollowController extends Controller
                 return response()->json([
                     "followings" => SellersFollowings::collection($followings),
                     "status" => 200
-                ]);
+                ], 200);
             } else {
                 return response()->json([
                     "followings" => [],
                     "status" => 200
-                ]);
+                ], 200);
             }
         } elseif (Auth::guard('customer-api')->check()) {
             $loggedInCustomer_id = Auth::guard('customer-api')->user()->id;
@@ -369,18 +381,18 @@ class FollowController extends Controller
                 return response()->json([
                     "followings" => SellersFollowings::collection($followings),
                     "status" => 200
-                ]);
+                ], 200);
             } else {
                 return response()->json([
                     "followings" => [],
                     "status" => 200
-                ]);
+                ], 200);
             }
         } else {
             return response()->json([
                 "message" => "Unauthenticated.",
                 "status" => 401
-            ]);
+            ], 401);
         }
     }
 
@@ -398,12 +410,12 @@ class FollowController extends Controller
                 return response()->json([
                     "followings" => CustomersFollowings::collection($followings),
                     "status" => 200
-                ]);
+                ], 200);
             } else {
                 return response()->json([
                     "followings" => [],
                     "status" => 200
-                ]);
+                ], 200);
             }
         } elseif (Auth::guard('customer-api')->check()) {
             $loggedInCustomer_id = Auth::guard('customer-api')->user()->id;
@@ -416,18 +428,18 @@ class FollowController extends Controller
                 return response()->json([
                     "followings" => CustomersFollowings::collection($followings),
                     "status" => 200
-                ]);
+                ], 200);
             } else {
                 return response()->json([
                     "followings" => [],
                     "status" => 200
-                ]);
+                ], 200);
             }
         } else {
             return response()->json([
                 "message" => "Unauthenticated.",
                 "status" => 401
-            ]);
+            ], 401);
         }
     }
 

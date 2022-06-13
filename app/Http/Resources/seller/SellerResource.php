@@ -2,8 +2,10 @@
 
 namespace App\Http\Resources\seller;
 
-use Illuminate\Http\Resources\Json\JsonResource;
+use App\Models\Seller;
+use App\Models\Customer;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 class SellerResource extends JsonResource
 {
@@ -15,6 +17,9 @@ class SellerResource extends JsonResource
      */
     public function toArray($request)
     {
+        $seller = Seller::find($this->id);
+        $followings_count = $seller->followings()->whereFollowableType(Customer::class)->count() +
+            $seller->followings()->whereFollowableType(Seller::class)->count();
         return [
             'id' => $this->id,
             'name' => $this->name,
@@ -23,10 +28,10 @@ class SellerResource extends JsonResource
             'address' => $this->address ?? null,
             'category' => $this->category->name ?? null,
             'image_url' => $this->seller_img ? URL::to('images/sellers/' . $this->seller_img) : null,
-            'posts_count' => 0,
+            'posts_count' => $this->posts->count(),
             'products_count' => 0,
-            'followers_count' => 0,
-            'followings_count' => 0,
+            'followers_count' => $this->followers()->count(),
+            'followings_count' => $followings_count,
         ];
     }
 }

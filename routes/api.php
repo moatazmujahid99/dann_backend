@@ -49,6 +49,7 @@ use App\Http\Controllers\Api\Customer\CustomerController;
 Route::get('/sellers', [SellerController::class, 'index']);
 Route::get('/seller/{seller_id}', [SellerController::class, 'show']);
 
+
 //customers
 Route::get('/customers', [CustomerController::class, 'index']);
 Route::get('/customer/{customer_id}', [CustomerController::class, 'show']);
@@ -83,10 +84,13 @@ Route::get('/sellers/categories', [SellerCategoryController::class, 'index']);
 Route::post('/create/post', [PostController::class, 'store']);
 Route::post('/post/{post_id}/update', [PostController::class, 'update']);
 Route::post('/post/{post_id}/delete', [PostController::class, 'destroy']);
+Route::post('/post/{post_id}/image/delete', [PostController::class, 'deletePostImage']);
 Route::get('/posts/seller/{seller_id}', [PostController::class, 'viewSellerPosts']);
 Route::get('/posts/customer/{customer_id}', [PostController::class, 'viewCustomerPosts']);
+Route::get('/posts', [PostController::class, 'index']);
 Route::get('/post/{post_id}', [PostController::class, 'show']);
 Route::get('/posts/tag/{tag_id}', [TagController::class, 'fliterPostsByTag']);
+Route::get('/followings/posts', [PostController::class, 'getFollowingsPosts']);
 
 
 //tags

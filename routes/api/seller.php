@@ -22,4 +22,5 @@ Route::post('/seller/login', [AuthController::class, 'login'])->name('sellerLogi
 Route::group(['middleware' => 'auth:seller-api'], function () {
 
     Route::post('/seller/{seller_id}/update', [SellerController::class, 'update']);
+    Route::post('/seller/{seller_id}/image/delete', [SellerController::class, 'deleteSellerImage']);
 });
