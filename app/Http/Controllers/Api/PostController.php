@@ -37,7 +37,7 @@ class PostController extends Controller
             return response()->json([
                 'message' => "customer not found",
                 'status' => 404
-            ]);
+            ],404);
         }
 
         if (Auth::guard('seller-api')->check() || Auth::guard('customer-api')->check()) {
@@ -50,7 +50,7 @@ class PostController extends Controller
                     'image_url' => $customer->customer_img ? URL::to('images/customers/' . $customer->customer_img) : null
                 ],
                 'status' => 200
-            ]);
+            ],200);
         } else {
 
             return response()->json([
@@ -68,7 +68,7 @@ class PostController extends Controller
             return response()->json([
                 'message' => "seller not found",
                 'status' => 404
-            ]);
+            ],404);
         }
 
         if (Auth::guard('seller-api')->check() || Auth::guard('customer-api')->check()) {
@@ -82,13 +82,13 @@ class PostController extends Controller
                     'image_url' => $seller->seller_img ? URL::to('images/sellers/' . $seller->seller_img) : null
                 ],
                 'status' => 200
-            ]);
+            ],200);
         } else {
 
             return response()->json([
                 "message" => "Unauthenticated.",
                 "status" => 401
-            ]);
+            ],401);
         }
     }
     /**
@@ -110,7 +110,7 @@ class PostController extends Controller
             return response()->json([
                 'error' => $validator->errors()->all(),
                 'status' => 400
-            ]);
+            ],400);
         }
 
         if (isset($request->post_img)) {
@@ -137,7 +137,7 @@ class PostController extends Controller
             return response()->json([
                 "message" => "Unauthenticated.",
                 "status" => 401
-            ]);
+            ],401);
         }
 
         $post = Post::create([
@@ -154,7 +154,7 @@ class PostController extends Controller
             'message' => "post is created successfully",
             'post' => new PostResource($post),
             'status' => 201
-        ]);
+        ],201);
     }
 
     /**
@@ -171,7 +171,7 @@ class PostController extends Controller
             return response()->json([
                 'message' => "post not found",
                 'status' => 404
-            ]);
+            ],404);
         }
 
         if (Auth::guard('seller-api')->check() || Auth::guard('customer-api')->check()) {
@@ -184,13 +184,13 @@ class PostController extends Controller
                     'tags' => TagResource::collection($post->tags),
                 ],
                 'status' => 200
-            ]);
+            ],200);
         } else {
 
             return response()->json([
                 "message" => "Unauthenticated.",
                 "status" => 401
-            ]);
+            ],401);
         }
     }
 
@@ -209,7 +209,7 @@ class PostController extends Controller
             return response()->json([
                 'message' => "post not found",
                 'status' => 404
-            ]);
+            ],404);
         }
 
         $validator = Validator::make($request->all(), [
@@ -223,7 +223,7 @@ class PostController extends Controller
             return response()->json([
                 'error' => $validator->errors()->all(),
                 'status' => 400
-            ]);
+            ],400);
         }
 
         if (!(Auth::guard('seller-api')->check() || Auth::guard('customer-api')->check())) {
@@ -231,7 +231,7 @@ class PostController extends Controller
             return response()->json([
                 "message" => "Unauthenticated.",
                 "status" => 401
-            ]);
+            ],401);
         }
 
         if ((Auth::guard('seller-api')->check() && $post->seller_id == null)
@@ -240,21 +240,21 @@ class PostController extends Controller
             return response()->json([
                 "message" => "Unauthenticated",
                 "status" => 401
-            ]);
+            ],401);
         } else {
             if (Auth::guard('seller-api')->check()) {
                 if (Auth::guard('seller-api')->user()->id != $post->seller_id) {
                     return response()->json([
                         "message" => "You are not authorized to update this post",
                         "status" => 403
-                    ]);
+                    ],403);
                 }
             } elseif (Auth::guard('customer-api')->check()) {
                 if (Auth::guard('customer-api')->user()->id != $post->customer_id) {
                     return response()->json([
                         "message" => "You are not authorized to update this post",
                         "status" => 403
-                    ]);
+                    ],403);
                 }
             }
         }
@@ -290,7 +290,7 @@ class PostController extends Controller
             'message' => "post is updated successfully",
             'post' => new PostResource($post),
             'status' => 200
-        ]);
+        ],200);
     }
 
     /**
@@ -308,7 +308,7 @@ class PostController extends Controller
             return response()->json([
                 'message' => "post not found",
                 'status' => 404
-            ]);
+            ],404);
         }
 
 
@@ -317,7 +317,7 @@ class PostController extends Controller
             return response()->json([
                 "message" => "Unauthenticated.",
                 "status" => 401
-            ]);
+            ],401);
         }
 
         if ((Auth::guard('seller-api')->check() && $post->seller_id == null)
@@ -326,21 +326,21 @@ class PostController extends Controller
             return response()->json([
                 "message" => "Unauthenticated",
                 "status" => 401
-            ]);
+            ],401);
         } else {
             if (Auth::guard('seller-api')->check()) {
                 if (Auth::guard('seller-api')->user()->id != $post->seller_id) {
                     return response()->json([
                         "message" => "You are not authorized to delete this post",
                         "status" => 403
-                    ]);
+                    ],403);
                 }
             } elseif (Auth::guard('customer-api')->check()) {
                 if (Auth::guard('customer-api')->user()->id != $post->customer_id) {
                     return response()->json([
                         "message" => "You are not authorized to delete this post",
                         "status" => 403
-                    ]);
+                    ],403);
                 }
             }
         }
@@ -356,6 +356,6 @@ class PostController extends Controller
             'message' => "post is deleted successfully",
             'deleted_post' => new PostResource($post),
             'status' => 200
-        ]);
+        ],200);
     }
 }

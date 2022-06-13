@@ -24,7 +24,7 @@ class AuthController extends Controller
             return response()->json([
                 'error' => $validator->errors()->all(),
                 'status' => 400
-            ]);
+            ],400);
         }
 
         $customer = Customer::create([
@@ -45,7 +45,7 @@ class AuthController extends Controller
                 'password' => $customer->password
             ],
             'status' => 201
-        ]);
+        ],201);
     }
 
     public function login(Request $request)
@@ -60,7 +60,7 @@ class AuthController extends Controller
             return response()->json([
                 'error' => $validator->errors()->all(),
                 'status' => 400
-            ]);
+            ],400);
         }
 
         if (Auth::guard('customer')->attempt($request->only('email', 'password'))) {
@@ -79,13 +79,13 @@ class AuthController extends Controller
                     'password' => $customer->password
                 ],
                 'status' => 200
-            ]);
+            ],200);
         }
 
         return response()->json([
             'message' => 'Invalid Email Or Password',
             'status' => 401
-        ]);
+        ],401);
     }
 
 
