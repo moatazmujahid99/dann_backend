@@ -56,7 +56,8 @@ Route::get('/customer/{customer_id}', [CustomerController::class, 'show']);
 //--------------anyone acccess those routes-------------------
 
 //check for who is logged in
-Route::get('/who_loggedin', function () {
+Route::get('/who_loggedin', function (Request $request) {
+
     if (Auth::guard('seller-api')->check()) {
         return response()->json([
             'message' => "seller"

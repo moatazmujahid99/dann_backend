@@ -9,6 +9,8 @@ use Hash;
 use Validator;
 use Auth;
 use App\Http\Resources\seller\SellerResource;
+use Laravel\Passport\ClientRepository;
+use Illuminate\Support\Facades\App;
 
 class AuthController extends Controller
 {
@@ -33,6 +35,10 @@ class AuthController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password)
         ]);
+        App::clearResolvedInstance(ClientRepository::class);
+        app()->singleton(ClientRepository::class, function () {
+            return new ClientRepository(env('SELLER_ID'), null); // You should give the client id in the first parameter
+        });
 
         $token = $seller->createToken('app')->accessToken;
 
@@ -51,7 +57,6 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-
         $validator = Validator::make($request->all(), [
             'email' => 'required|email|min:5|max:60',
             'password' => 'required|min:6|max:30'
@@ -65,6 +70,10 @@ class AuthController extends Controller
         }
 
         if (Auth::guard('seller')->attempt($request->only('email', 'password'))) {
+            App::clearResolvedInstance(ClientRepository::class);
+            app()->singleton(ClientRepository::class, function () {
+                return new ClientRepository(env('SELLER_ID'), null); // You should give the client id in the first parameter
+            });
 
             $seller = Auth::guard('seller')->user();
 

@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Api\customer;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\Customer;
+use Auth;
 use Hash;
 use Validator;
-use Auth;
+use App\Models\Customer;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
+use App\Http\Controllers\Controller;
+use Laravel\Passport\ClientRepository;
 
 
 class AuthController extends Controller
@@ -32,6 +34,11 @@ class AuthController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password)
         ]);
+
+        App::clearResolvedInstance(ClientRepository::class);
+        app()->singleton(ClientRepository::class, function () {
+            return new ClientRepository(env('CUSTOMER_ID'), null); // You should give the client id in the first parameter
+        });
 
         $token = $customer->createToken('app')->accessToken;
 
@@ -64,6 +71,10 @@ class AuthController extends Controller
         }
 
         if (Auth::guard('customer')->attempt($request->only('email', 'password'))) {
+            App::clearResolvedInstance(ClientRepository::class);
+            app()->singleton(ClientRepository::class, function () {
+                return new ClientRepository(env('CUSTOMER_ID'), null); // You should give the client id in the first parameter
+            });
 
             $customer = Auth::guard('customer')->user();
 

@@ -238,8 +238,8 @@ class PostController extends Controller
             || (Auth::guard('customer-api')->check() && $post->customer_id == null)
         ) {
             return response()->json([
-                "message" => "Unauthenticated",
-                "status" => 401
+                "message" => "You are not authorized to update this post",
+                "status" => 403
             ]);
         } else {
             if (Auth::guard('seller-api')->check()) {
@@ -324,8 +324,8 @@ class PostController extends Controller
             || (Auth::guard('customer-api')->check() && $post->customer_id == null)
         ) {
             return response()->json([
-                "message" => "Unauthenticated",
-                "status" => 401
+                "message" => "You are not authorized to delete this post",
+                "status" => 403
             ]);
         } else {
             if (Auth::guard('seller-api')->check()) {
