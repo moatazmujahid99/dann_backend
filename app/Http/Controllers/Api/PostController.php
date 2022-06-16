@@ -348,14 +348,33 @@ class PostController extends Controller
 
         if (Auth::guard('seller-api')->check() || Auth::guard('customer-api')->check()) {
 
+            $arrayData = [
+                'id' => $post->id,
+                'description' => $post->description,
+                'image_url' => $post->post_img ? URL::to('images/posts/' . $post->post_img) : null,
+                'tags' => TagResource::collection($post->tags),
+                'comments_count' => $post->comments->count(),
+                'updated_at' => $post->updated_at,
+                'likes_count' => $post->followers()->count()
+            ];
+
+            if ($post->seller_id != null) {
+                $arrayData['created_by'] = array(
+                    "type" => "seller",
+                    "id" => $post->seller_id,
+                    "name" => $post->seller->name,
+                    "image_url" => $post->seller->seller_img ? URL::to('images/sellers/' . $post->seller->seller_img) : null
+                );
+            } elseif ($post->customer_id != null) {
+                $arrayData['created_by'] = array(
+                    "type" => "customer",
+                    "id" => $post->customer_id,
+                    "name" => $post->customer->name,
+                    "image_url" => $post->customer->customer_img ? URL::to('images/customers/' . $post->customer->customer_img) : null
+                );
+            }
             return response()->json([
-                'post' => [
-                    'id' => $post->id,
-                    'description' => $post->description,
-                    'image_url' => $post->post_img ? URL::to('images/posts/' . $post->post_img) : null,
-                    'tags' => TagResource::collection($post->tags),
-                    'likes_count' => $post->followers()->count()
-                ],
+                'post' => $arrayData,
                 'status' => 200
             ], 200);
         } else {
