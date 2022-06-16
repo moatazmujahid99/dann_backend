@@ -43,6 +43,7 @@ class LikeController extends Controller
 
         return response()->json([
             "message" => "you like this post",
+            'likes_count' => $post->followers()->count(),
             "status" => 200
         ]);
     }
@@ -78,6 +79,7 @@ class LikeController extends Controller
 
         return response()->json([
             "message" => "you unlike this post",
+            'likes_count' => $post->followers()->count(),
             "status" => 200
         ]);
     }
