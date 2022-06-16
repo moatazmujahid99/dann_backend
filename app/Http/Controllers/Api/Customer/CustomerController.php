@@ -116,7 +116,9 @@ class CustomerController extends Controller
                 File::makeDirectory(public_path() . '/' . 'images/customers', 0777, true);
             }
             $image_resize = Image::make($image);
-            //$image_resize->resize(300, 300);
+            $image_resize->resize(null, 300, function ($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();});
             $image_resize->save('images/customers/' . $name_gen);
 
             if (isset($customer->customer_img)) {

@@ -57,7 +57,9 @@ class NewCategoryController extends Controller
 
         $image = $request->file('category_image');
         $name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
-        Image::make($image)->resize(128,128)->save('upload/category/'.$name_gen);
+        Image::make($image)->resize(null, 128, function ($constraint) {
+            $constraint->aspectRatio();
+            $constraint->upsize();})->save('upload/category/'.$name_gen);
         $save_url = 'http://127.0.0.1:8000/upload/category/'.$name_gen;
 
         Category::insert([
@@ -91,7 +93,10 @@ class NewCategoryController extends Controller
 
         $image = $request->file('category_image');
         $name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
-        Image::make($image)->resize(128,128)->save('upload/category/'.$name_gen);
+        // omar - check
+        Image::make($image)->resize(null, 128, function ($constraint) {
+            $constraint->aspectRatio();
+            $constraint->upsize();})->save('upload/category/'.$name_gen);
         $save_url = 'http://127.0.0.1:8000/upload/category/'.$name_gen;
 
         Category::findOrFail($category_id)->update([

@@ -87,7 +87,24 @@ class ProductListController extends Controller
 
         $image = $request->file('image');
         $name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
-        Image::make($image)->resize(711,960)->save('upload/product/'.$name_gen);
+
+
+        // omar - check
+        // Image::make($image)->resize(711,960)->save('upload/product/'.$name_gen);
+
+        // resize the image to a height of 700 and constrain aspect ratio (auto width)
+        // prevent possible upsizing
+        Image::make($image)->
+
+        resize(null, 245, function ($constraint) {
+            $constraint->aspectRatio();
+            $constraint->upsize();})
+
+
+        ->save('upload/product/'.$name_gen);
+
+
+
         $save_url = 'http://127.0.0.1:8000/upload/product/'.$name_gen;
         //omar-check
         //product rating
@@ -110,27 +127,39 @@ class ProductListController extends Controller
 
     $image1 = $request->file('image_one');
     $name_gen1 = hexdec(uniqid()).'.'.$image1->getClientOriginalExtension();
-    Image::make($image1)->resize(711,960)->save('upload/productdetails/'.$name_gen1);
+    Image::make($image1)->resize(null, 392, function ($constraint) {
+        $constraint->aspectRatio();
+        $constraint->upsize();})
+->save('upload/productdetails/'.$name_gen1);
     $save_url1 = 'http://127.0.0.1:8000/upload/productdetails/'.$name_gen1;
 
 
     $image2 = $request->file('image_two');
     $name_gen2 = hexdec(uniqid()).'.'.$image2->getClientOriginalExtension();
-    Image::make($image2)->resize(711,960)->save('upload/productdetails/'.$name_gen2);
+    Image::make($image2)->resize(null, 392, function ($constraint) {
+        $constraint->aspectRatio();
+        $constraint->upsize();})
+->save('upload/productdetails/'.$name_gen2);
     $save_url2 = 'http://127.0.0.1:8000/upload/productdetails/'.$name_gen2;
 
 
      $image3 = $request->file('image_three');
      //omar - check
     $name_gen3 = hexdec(uniqid()).'.'.$image3->getClientOriginalExtension();
-    Image::make($image1)->resize(711,960)->save('upload/productdetails/'.$name_gen3);
+    Image::make($image1)->resize(null, 392, function ($constraint) {
+        $constraint->aspectRatio();
+        $constraint->upsize();})
+->save('upload/productdetails/'.$name_gen3);
     $save_url3 = 'http://127.0.0.1:8000/upload/productdetails/'.$name_gen3;
 
 
 
      $image4 = $request->file('image_four');
     $name_gen4 = hexdec(uniqid()).'.'.$image4->getClientOriginalExtension();
-    Image::make($image4)->resize(711,960)->save('upload/productdetails/'.$name_gen4);
+    Image::make($image4)->resize(null, 392, function ($constraint) {
+        $constraint->aspectRatio();
+        $constraint->upsize();})
+->save('upload/productdetails/'.$name_gen4);
     $save_url4 = 'http://127.0.0.1:8000/upload/productdetails/'.$name_gen4;
 
         ProductDetails::insert([
