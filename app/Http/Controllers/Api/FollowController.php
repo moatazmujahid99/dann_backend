@@ -51,7 +51,7 @@ class FollowController extends Controller
         $followings_count = $seller->followings()->whereFollowableType(Customer::class)->count() +
             $seller->followings()->whereFollowableType(Seller::class)->count();
         return response()->json([
-            "message" => "now you are following shop " . $seller->name,
+            "message" => "now you are following this shop",
             'followers_count' => $seller->followers()->count(),
             'followings_count' => $followings_count,
             "status" => 200
@@ -93,7 +93,7 @@ class FollowController extends Controller
         $followings_count = $customer->followings()->whereFollowableType(Customer::class)->count() +
             $customer->followings()->whereFollowableType(Seller::class)->count();
         return response()->json([
-            "message" => "now you are following customer " . $customer->name,
+            "message" => "now you are following this customer",
             'followers_count' => $customer->followers()->count(),
             'followings_count' => $followings_count,
             "status" => 200
@@ -131,7 +131,7 @@ class FollowController extends Controller
         $followings_count = $seller->followings()->whereFollowableType(Customer::class)->count() +
             $seller->followings()->whereFollowableType(Seller::class)->count();
         return response()->json([
-            "message" => "now you are not following shop " . $seller->name,
+            "message" => "now you are not following this shop",
             'followers_count' => $seller->followers()->count(),
             'followings_count' => $followings_count,
             "status" => 200
@@ -167,7 +167,7 @@ class FollowController extends Controller
         $followings_count = $customer->followings()->whereFollowableType(Customer::class)->count() +
             $customer->followings()->whereFollowableType(Seller::class)->count();
         return response()->json([
-            "message" => "now you are not following customer " . $customer->name,
+            "message" => "now you are not following this customer",
             'followers_count' => $customer->followers()->count(),
             'followings_count' => $followings_count,
             "status" => 200
