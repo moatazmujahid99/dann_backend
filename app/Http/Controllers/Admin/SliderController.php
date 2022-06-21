@@ -18,7 +18,7 @@ class SliderController extends Controller
     public function GetAllSlider(){
         $slider = HomeSlider::latest()->get();
         return view('backend.slider.slider_view',compact('slider'));
-    } // End  
+    } // End
 
 
     public function AddSlider(){
@@ -38,7 +38,9 @@ class SliderController extends Controller
 
         $image = $request->file('slider_image');
         $name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
-        Image::make($image)->resize(1024,379)->save('upload/slider/'.$name_gen);
+        Image::make($image)->resize(null, 380, function ($constraint) {
+            $constraint->aspectRatio();
+            $constraint->upsize();})->save('upload/slider/'.$name_gen);
         $save_url = 'http://127.0.0.1:8000/upload/slider/'.$name_gen;
 
         HomeSlider::insert([
@@ -68,7 +70,9 @@ class SliderController extends Controller
 
         $image = $request->file('slider_image');
         $name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
-        Image::make($image)->resize(1024,379)->save('upload/slider/'.$name_gen);
+        Image::make($image)->resize(null, 380, function ($constraint) {
+            $constraint->aspectRatio();
+            $constraint->upsize();})->save('upload/slider/'.$name_gen);
         $save_url = 'http://127.0.0.1:8000/upload/slider/'.$name_gen;
 
         HomeSlider::findOrFail($slider_id)->update([
