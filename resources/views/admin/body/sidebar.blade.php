@@ -148,13 +148,7 @@
 
 
 
-				<li>
-					<a href="https://www.facebook.com/Dann-Business-Park-111894944887894/" target="_blank">
-						<div class="parent-icon"><i class="bx bx-support"></i>
-						</div>
-						<div class="menu-title">Support</div>
-					</a>
-				</li>
+			
 			</ul>
 			<!--end navigation-->
 		</div>
