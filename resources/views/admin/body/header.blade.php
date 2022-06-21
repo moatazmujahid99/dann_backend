@@ -55,7 +55,7 @@
 								</div>
 							</li>
 							<li class="nav-item dropdown dropdown-large">
-								<a class="nav-link dropdown-toggle dropdown-toggle-nocaret position-relative" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"> <span class="alert-count">7</span>
+								<a class="nav-link dropdown-toggle dropdown-toggle-nocaret position-relative" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"> <span class="alert-count">1</span>
 									<i class='bx bx-bell'></i>
 								</a>
 								<div class="dropdown-menu dropdown-menu-end">
@@ -172,7 +172,7 @@
 								</div>
 							</li>
 							<li class="nav-item dropdown dropdown-large">
-								<a class="nav-link dropdown-toggle dropdown-toggle-nocaret position-relative" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"> <span class="alert-count">8</span>
+								<a class="nav-link dropdown-toggle dropdown-toggle-nocaret position-relative" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"> <span class="alert-count">2</span>
 									<i class='bx bx-comment'></i>
 								</a>
 								<div class="dropdown-menu dropdown-menu-end">
@@ -316,7 +316,7 @@
 											</div>
 										</a>
 									</div>
-									<a href="javascript:;">
+									<a href="{{ url('/all/message') }}">
 										<div class="text-center msg-footer">View All Messages</div>
 									</a>
 								</div>
@@ -341,11 +341,11 @@
 							</li>
 		 <li><a class="dropdown-item" href="{{ route('change.password')}}"><i class="bx bx-cog"></i><span>Change Password </span></a>
 		 </li>
-		 <li><a class="dropdown-item" href="javascript:;"><i class='bx bx-home-circle'></i><span>Dashboard</span></a>
+		 <li><a class="dropdown-item" href="{{ url('/dashboard') }}"><i class='bx bx-home-circle'></i><span>Dashboard</span></a>
 							</li>
-							<li><a class="dropdown-item" href="javascript:;"><i class='bx bx-dollar-circle'></i><span>Earnings</span></a>
+							<li><a class="dropdown-item" href="{{ url('/all/review') }}"><i class='bx bx-star'></i><span>Reviews</span></a>
 							</li>
-							<li><a class="dropdown-item" href="javascript:;"><i class='bx bx-download'></i><span>Downloads</span></a>
+							<li><a class="dropdown-item" href="{{ url('/product/all') }}"><i class='bx bx-purchase-tag-alt'></i><span>Products</span></a>
 							</li>
 							<li>
 								<div class="dropdown-divider mb-0"></div>

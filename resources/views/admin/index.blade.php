@@ -9,17 +9,17 @@
 							<div class="card radius-10 bg-gradient-deepblue">
 							 <div class="card-body">
 								<div class="d-flex align-items-center">
-									<h5 class="mb-0 text-white">9526</h5>
+									<h5 class="mb-0 text-white">0</h5>
 									<div class="ms-auto">
                                         <i class='bx bx-cart fs-3 text-white'></i>
 									</div>
 								</div>
 								<div class="progress my-3 bg-light-transparent" style="height:3px;">
-									<div class="progress-bar bg-white" role="progressbar" style="width: 55%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+									<div class="progress-bar bg-white" role="progressbar" style="width: 3%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
 								</div>
 								<div class="d-flex align-items-center text-white">
 									<p class="mb-0">Total Orders</p>
-									<p class="mb-0 ms-auto">+4.2%<span><i class='bx bx-up-arrow-alt'></i></span></p>
+									<p class="mb-0 ms-auto">+0.0%<span><i class='bx bx-up-arrow-alt'></i></span></p>
 								</div>
 							</div>
 						  </div>
@@ -28,17 +28,17 @@
 							<div class="card radius-10 bg-gradient-orange">
 							<div class="card-body">
 								<div class="d-flex align-items-center">
-									<h5 class="mb-0 text-white">$8323</h5>
+									<h5 class="mb-0 text-white">0.0 EGP </h5>
 									<div class="ms-auto">
-                                        <i class='bx bx-dollar fs-3 text-white'></i>
+                                        <i class='bx bx-money fs-3 text-white'></i>
 									</div>
 								</div>
 								<div class="progress my-3 bg-light-transparent" style="height:3px;">
-									<div class="progress-bar bg-white" role="progressbar" style="width: 55%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+									<div class="progress-bar bg-white" role="progressbar" style="width: 3%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
 								</div>
 								<div class="d-flex align-items-center text-white">
 									<p class="mb-0">Total Revenue</p>
-									<p class="mb-0 ms-auto">+1.2%<span><i class='bx bx-up-arrow-alt'></i></span></p>
+									<p class="mb-0 ms-auto">+0.0%<span><i class='bx bx-up-arrow-alt'></i></span></p>
 								</div>
 							</div>
 						  </div>
@@ -47,17 +47,17 @@
 							<div class="card radius-10 bg-gradient-ohhappiness">
 							<div class="card-body">
 								<div class="d-flex align-items-center">
-									<h5 class="mb-0 text-white">6200</h5>
+									<h5 class="mb-0 text-white">0</h5>
 									<div class="ms-auto">
                                         <i class='bx bx-group fs-3 text-white'></i>
 									</div>
 								</div>
 								<div class="progress my-3 bg-light-transparent" style="height:3px;">
-									<div class="progress-bar bg-white" role="progressbar" style="width: 55%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+									<div class="progress-bar bg-white" role="progressbar" style="width: 3%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
 								</div>
 								<div class="d-flex align-items-center text-white">
-									<p class="mb-0">Visitors</p>
-									<p class="mb-0 ms-auto">+5.2%<span><i class='bx bx-up-arrow-alt'></i></span></p>
+									<p class="mb-0">Customers</p>
+									<p class="mb-0 ms-auto">+0.0%<span><i class='bx bx-up-arrow-alt'></i></span></p>
 								</div>
 							</div>
 						</div>
@@ -66,17 +66,17 @@
 							<div class="card radius-10 bg-gradient-ibiza">
 							 <div class="card-body">
 								<div class="d-flex align-items-center">
-									<h5 class="mb-0 text-white">5630</h5>
+									<h5 class="mb-0 text-white">0</h5>
 									<div class="ms-auto">
                                         <i class='bx bx-envelope fs-3 text-white'></i>
 									</div>
 								</div>
 								<div class="progress my-3 bg-light-transparent" style="height:3px;">
-									<div class="progress-bar bg-white" role="progressbar" style="width: 55%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+									<div class="progress-bar bg-white" role="progressbar" style="width: 3%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
 								</div>
 								<div class="d-flex align-items-center text-white">
 									<p class="mb-0">Messages</p>
-									<p class="mb-0 ms-auto">+2.2%<span><i class='bx bx-up-arrow-alt'></i></span></p>
+									<p class="mb-0 ms-auto">+0.0%<span><i class='bx bx-up-arrow-alt'></i></span></p>
 								</div>
 							</div>
 						 </div>
@@ -85,13 +85,67 @@
 
 
 
+{{-- Analytics - 2 --}}
 
-				 
+<div class="row row-cols-1 row-cols-lg-2 row-cols-xl-3">
+    <div class="col">
+        <div class="card radius-10">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <div>
+                        <p class="mb-0 text-secondary">Net Sales</p>
+                        <h4 class="my-1">0.0 EGP</h4>
+                        <p class="mb-0 font-13 text-primary"><i class='bx bxs-up-arrow align-middle'></i>0 EGP Since last week</p>
+                    </div>
+                    <div class="widgets-icons bg-light-success text-primary ms-auto"><i class='bx bxs-wallet'></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card radius-10">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <div>
+                        <p class="mb-0 text-secondary">Page Followers</p>
+                        <h4 class="my-1">0</h4>
+                        <p class="mb-0 font-13 text-primary"><i class='bx bxs-up-arrow align-middle'></i>0% Since last week</p>
+                    </div>
+                    <div class="widgets-icons bg-light-warning text-primary ms-auto"><i class='bx bxs-group'></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12">
+        <div class="card radius-10">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <div>
+                        <p class="mb-0 text-secondary">Produt Reviews</p>
+                        <h4 class="my-1">0</h4>
+                        <p class="mb-0 font-13 text-primary"><i class='bx bxs-up-arrow align-middle'></i>0% Since last week</p>
+                    </div>
+                    <div class="widgets-icons bg-light-danger text-primary ms-auto"><i class='bx bxs-comment-detail'></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--end row-->
+
+
+
+
+
+
 					  <div class="card radius-10">
 						<div class="card-body">
 							<div class="d-flex align-items-center">
 								<div>
-									<h5 class="mb-0">Orders Summary</h5>
+									<h5 class="mb-0">Order Summary</h5>
 								</div>
 								<div class="font-22 ms-auto"><i class="bx bx-dots-horizontal-rounded"></i>
 								</div>
@@ -112,7 +166,7 @@
 </thead>
 <tbody>
 	<tr>
-		<td>#897656</td>
+		<td>#00001</td>
 		<td>
 			<div class="d-flex align-items-center">
 				<div class="recent-product-img">
@@ -123,9 +177,9 @@
 				</div>
 			</div>
 		</td>
-		<td>Brooklyn Zeo</td>
-		<td>12 Jul 2020</td>
-		<td>$64.00</td>
+		<td>Ali Mohamed</td>
+		<td>12 June 2022</td>
+		<td>EGP 64.00</td>
 		<td>
 			<div class="badge rounded-pill bg-light-info text-info w-100">In Progress</div>
 		</td>
@@ -136,7 +190,7 @@
 		</td>
 	</tr>
 	<tr>
-		<td>#987549</td>
+		<td>#00002</td>
 		<td>
 			<div class="d-flex align-items-center">
 				<div class="recent-product-img">
@@ -147,9 +201,9 @@
 				</div>
 			</div>
 		</td>
-		<td>Martin Hughes</td>
-		<td>14 Jul 2020</td>
-		<td>$45.00</td>
+		<td>Mohamed Elsayed</td>
+		<td>14 June 2022</td>
+		<td>EGP 45.00</td>
 		<td>
 			<div class="badge rounded-pill bg-light-success text-success w-100">Completed</div>
 		</td>
@@ -160,7 +214,7 @@
 		</td>
 	</tr>
 	<tr>
-		<td>#685749</td>
+		<td>#00003</td>
 		<td>
 			<div class="d-flex align-items-center">
 				<div class="recent-product-img">
@@ -171,9 +225,9 @@
 				</div>
 			</div>
 		</td>
-		<td>Shoan Stephen</td>
-		<td>15 Jul 2020</td>
-		<td>$67.00</td>
+		<td>Salma Ibrahim</td>
+		<td>15 June 2022</td>
+		<td>EGP 67.00</td>
 		<td>
 			<div class="badge rounded-pill bg-light-danger text-danger w-100">Cancelled</div>
 		</td>
@@ -184,7 +238,7 @@
 		</td>
 	</tr>
 	<tr>
-		<td>#887459</td>
+		<td>#00004</td>
 		<td>
 			<div class="d-flex align-items-center">
 				<div class="recent-product-img">
@@ -195,9 +249,9 @@
 				</div>
 			</div>
 		</td>
-		<td>Alister Campel</td>
-		<td>18 Jul 2020</td>
-		<td>$87.00</td>
+		<td>Omar Samir</td>
+		<td>18 June 2022</td>
+		<td>EGP 87.00</td>
 		<td>
 			<div class="badge rounded-pill bg-light-success text-success w-100">Completed</div>
 		</td>
@@ -208,7 +262,7 @@
 		</td>
 	</tr>
 	<tr>
-		<td>#335428</td>
+		<td>#00005</td>
 		<td>
 			<div class="d-flex align-items-center">
 				<div class="recent-product-img">
@@ -219,9 +273,9 @@
 				</div>
 			</div>
 		</td>
-		<td>Keate Medona</td>
-		<td>20 Jul 2020</td>
-		<td>$75.00</td>
+		<td>Shadi Kamal</td>
+		<td>20 June 2022</td>
+		<td>EGP 75.00</td>
 		<td>
 			<div class="badge rounded-pill bg-light-info text-info w-100">In Progress</div>
 		</td>
@@ -232,7 +286,7 @@
 		</td>
 	</tr>
 	<tr>
-		<td>#224578</td>
+		<td>#00006</td>
 		<td>
 			<div class="d-flex align-items-center">
 				<div class="recent-product-img">
@@ -243,9 +297,9 @@
 				</div>
 			</div>
 		</td>
-		<td>Winslet Maya</td>
-		<td>22 Jul 2020</td>
-		<td>$80.00</td>
+		<td>Assem Gamal</td>
+		<td>22 June 2022</td>
+		<td>EGP 80.00</td>
 		<td>
 			<div class="badge rounded-pill bg-light-danger text-danger w-100">Cancelled</div>
 		</td>
@@ -255,7 +309,7 @@
 			</div>
 		</td>
 	</tr>
-	 
+
 									</tbody>
 								</table>
 							</div>
