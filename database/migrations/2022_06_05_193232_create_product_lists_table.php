@@ -17,15 +17,20 @@ class CreateProductListsTable extends Migration
             $table->id();
             $table->string('title');
             $table->string('price');
-            $table->string('special_price');
+            $table->string('special_price')->nullable();
             $table->string('image');
             $table->string('category');
             $table->string('subcategory');
             $table->string('remark');
             $table->string('brand');
-            $table->string('star');
+            $table->string('star')->nullable();
             $table->string('product_code');
+            $table->unsignedBigInteger('seller_id')->nullable();
             $table->timestamps();
+
+            $table->foreign('seller_id')
+                ->references('id')->on('sellers')
+                ->onDelete('set null');
         });
     }
 

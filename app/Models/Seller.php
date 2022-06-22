@@ -36,6 +36,15 @@ class Seller extends Authenticatable implements CanFollowContract, CanBeFollowed
     {
         return $this->hasMany(Post::class)->orderByDesc('updated_at');
     }
+    public function productDetails()
+    {
+        return $this->hasMany(ProductDetails::class)->orderByDesc('updated_at');
+    }
+
+    public function productList()
+    {
+        return $this->hasMany(ProductList::class)->orderByDesc('updated_at');
+    }
 
     public function comments()
     {

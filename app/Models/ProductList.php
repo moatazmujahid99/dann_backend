@@ -22,5 +22,8 @@ class ProductList extends Model
         'product_code',
 
     ];
-
+    public function seller()
+    {
+        return $this->belongsTo(Seller::class);
+    }
 }

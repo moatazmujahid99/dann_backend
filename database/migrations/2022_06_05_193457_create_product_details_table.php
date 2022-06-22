@@ -17,14 +17,19 @@ class CreateProductDetailsTable extends Migration
             $table->id();
             $table->integer('product_id');
             $table->string('image_one');
-            $table->string('image_two');
-            $table->string('image_three');
-            $table->string('image_four');
+            $table->unsignedBigInteger('seller_id')->nullable();
+            $table->string('image_two')->nullable();
+            $table->string('image_three')->nullable();
+            $table->string('image_four')->nullable();
             $table->string('short_description');
             $table->string('color');
-            $table->string('size');
-            $table->text('long_description');
+            $table->string('size')->nullable();
+            $table->text('long_description')->nullable();
             $table->timestamps();
+
+            $table->foreign('seller_id')
+                ->references('id')->on('sellers')
+                ->onDelete('set null');
         });
     }
 
