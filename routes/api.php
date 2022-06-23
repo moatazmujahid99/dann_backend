@@ -111,11 +111,17 @@ Route::get('/isfollowing/seller/{seller_id}', [FollowController::class, 'isfollo
 Route::get('/isfollowing/customer/{customer_id}', [FollowController::class, 'isfollowingCustomer']);
 
 
-Route::get('/followers/type/seller', [FollowController::class, 'followersTypeSeller']);
-Route::get('/followers/type/customer', [FollowController::class, 'followersTypeCustomer']);
+Route::get('/seller/{seller_id}/followers/type/seller', [FollowController::class, 'sellerfollowersTypeSeller']);
+Route::get('/seller/{seller_id}/followers/type/customer', [FollowController::class, 'sellerfollowersTypeCustomer']);
 
-Route::get('/followings/type/seller', [FollowController::class, 'followingsTypeSeller']);
-Route::get('/followings/type/customer', [FollowController::class, 'followingsTypeCustomer']);
+Route::get('/seller/{seller_id}/followings/type/seller', [FollowController::class, 'sellerfollowingsTypeSeller']);
+Route::get('/seller/{seller_id}/followings/type/customer', [FollowController::class, 'sellerfollowingsTypeCustomer']);
+
+Route::get('/customer/{customer_id}/followers/type/seller', [FollowController::class, 'customerfollowersTypeSeller']);
+Route::get('/customer/{customer_id}/followers/type/customer', [FollowController::class, 'customerfollowersTypeCustomer']);
+
+Route::get('/customer/{customer_id}/followings/type/seller', [FollowController::class, 'customerfollowingsTypeSeller']);
+Route::get('/customer/{customer_id}/followings/type/customer', [FollowController::class, 'customerfollowingsTypeCustomer']);
 
 
 

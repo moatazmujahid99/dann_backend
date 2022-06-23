@@ -270,32 +270,23 @@ class FollowController extends Controller
         }
     }
 
-    public function followersTypeSeller()
+
+    //--------------------------------------------------------------
+    public function sellerfollowersTypeSeller($seller_id)
     {
+        $seller = Seller::find($seller_id);
 
-        if (Auth::guard('seller-api')->check()) {
-            $loggedInSeller_id = Auth::guard('seller-api')->user()->id;
-            $loggedInSeller = Seller::find($loggedInSeller_id);
-            if ($loggedInSeller->followers()->whereFollowerType(Seller::class)->count() > 0) {
-                $followers = $loggedInSeller->followers()->whereFollowerType(Seller::class)
-                    ->orderBy('updated_at', 'DESC')
-                    ->get();
+        if (!$seller) {
+            return response()->json([
+                'message' => "seller not found",
+                'status' => 404
+            ], 404);
+        }
 
-                return response()->json([
-                    "followers" => SellersFollowers::collection($followers),
-                    "status" => 200
-                ], 200);
-            } else {
-                return response()->json([
-                    "followers" => [],
-                    "status" => 200
-                ], 200);
-            }
-        } elseif (Auth::guard('customer-api')->check()) {
-            $loggedInCustomer_id = Auth::guard('customer-api')->user()->id;
-            $loggedInCustomer = Customer::find($loggedInCustomer_id);
-            if ($loggedInCustomer->followers()->whereFollowerType(Seller::class)->count() > 0) {
-                $followers = $loggedInCustomer->followers()->whereFollowerType(Seller::class)
+        if (Auth::guard('seller-api')->check() || Auth::guard('customer-api')->check()) {
+
+            if ($seller->followers()->whereFollowerType(Seller::class)->count() > 0) {
+                $followers = $seller->followers()->whereFollowerType(Seller::class)
                     ->orderBy('updated_at', 'DESC')
                     ->get();
 
@@ -316,32 +307,21 @@ class FollowController extends Controller
             ], 401);
         }
     }
-    public function followersTypeCustomer()
+    public function sellerfollowersTypeCustomer($seller_id)
     {
+        $seller = Seller::find($seller_id);
 
-        if (Auth::guard('seller-api')->check()) {
-            $loggedInSeller_id = Auth::guard('seller-api')->user()->id;
-            $loggedInSeller = Seller::find($loggedInSeller_id);
-            if ($loggedInSeller->followers()->whereFollowerType(Customer::class)->count() > 0) {
-                $followers = $loggedInSeller->followers()->whereFollowerType(Customer::class)
-                    ->orderBy('updated_at', 'DESC')
-                    ->get();
+        if (!$seller) {
+            return response()->json([
+                'message' => "seller not found",
+                'status' => 404
+            ], 404);
+        }
 
-                return response()->json([
-                    "followers" => CustomersFollowers::collection($followers),
-                    "status" => 200
-                ], 200);
-            } else {
-                return response()->json([
-                    "followers" => [],
-                    "status" => 200
-                ], 200);
-            }
-        } elseif (Auth::guard('customer-api')->check()) {
-            $loggedInCustomer_id = Auth::guard('customer-api')->user()->id;
-            $loggedInCustomer = Customer::find($loggedInCustomer_id);
-            if ($loggedInCustomer->followers()->whereFollowerType(Customer::class)->count() > 0) {
-                $followers = $loggedInCustomer->followers()->whereFollowerType(Customer::class)
+        if (Auth::guard('seller-api')->check() || Auth::guard('customer-api')->check()) {
+
+            if ($seller->followers()->whereFollowerType(Customer::class)->count() > 0) {
+                $followers = $seller->followers()->whereFollowerType(Customer::class)
                     ->orderBy('updated_at', 'DESC')
                     ->get();
 
@@ -363,32 +343,22 @@ class FollowController extends Controller
         }
     }
 
-    public function followingsTypeSeller()
+    public function sellerfollowingsTypeSeller($seller_id)
     {
 
-        if (Auth::guard('seller-api')->check()) {
-            $loggedInSeller_id = Auth::guard('seller-api')->user()->id;
-            $loggedInSeller = Seller::find($loggedInSeller_id);
-            if ($loggedInSeller->followings()->whereFollowableType(Seller::class)->count() > 0) {
-                $followings = $loggedInSeller->followings()->whereFollowableType(Seller::class)
-                    ->orderBy('updated_at', 'DESC')
-                    ->get();
+        $seller = Seller::find($seller_id);
 
-                return response()->json([
-                    "followings" => SellersFollowings::collection($followings),
-                    "status" => 200
-                ], 200);
-            } else {
-                return response()->json([
-                    "followings" => [],
-                    "status" => 200
-                ], 200);
-            }
-        } elseif (Auth::guard('customer-api')->check()) {
-            $loggedInCustomer_id = Auth::guard('customer-api')->user()->id;
-            $loggedInCustomer = Customer::find($loggedInCustomer_id);
-            if ($loggedInCustomer->followings()->whereFollowableType(Seller::class)->count() > 0) {
-                $followings = $loggedInCustomer->followings()->whereFollowableType(Seller::class)
+        if (!$seller) {
+            return response()->json([
+                'message' => "seller not found",
+                'status' => 404
+            ], 404);
+        }
+
+        if (Auth::guard('seller-api')->check() || Auth::guard('customer-api')->check()) {
+
+            if ($seller->followings()->whereFollowableType(Seller::class)->count() > 0) {
+                $followings = $seller->followings()->whereFollowableType(Seller::class)
                     ->orderBy('updated_at', 'DESC')
                     ->get();
 
@@ -410,32 +380,21 @@ class FollowController extends Controller
         }
     }
 
-    public function followingsTypeCustomer()
+    public function sellerfollowingsTypeCustomer($seller_id)
     {
+        $seller = Seller::find($seller_id);
 
-        if (Auth::guard('seller-api')->check()) {
-            $loggedInSeller_id = Auth::guard('seller-api')->user()->id;
-            $loggedInSeller = Seller::find($loggedInSeller_id);
-            if ($loggedInSeller->followings()->whereFollowableType(Customer::class)->count() > 0) {
-                $followings = $loggedInSeller->followings()->whereFollowableType(Customer::class)
-                    ->orderBy('updated_at', 'DESC')
-                    ->get();
+        if (!$seller) {
+            return response()->json([
+                'message' => "seller not found",
+                'status' => 404
+            ], 404);
+        }
 
-                return response()->json([
-                    "followings" => CustomersFollowings::collection($followings),
-                    "status" => 200
-                ], 200);
-            } else {
-                return response()->json([
-                    "followings" => [],
-                    "status" => 200
-                ], 200);
-            }
-        } elseif (Auth::guard('customer-api')->check()) {
-            $loggedInCustomer_id = Auth::guard('customer-api')->user()->id;
-            $loggedInCustomer = Customer::find($loggedInCustomer_id);
-            if ($loggedInCustomer->followings()->whereFollowableType(Customer::class)->count() > 0) {
-                $followings = $loggedInCustomer->followings()->whereFollowableType(Customer::class)
+        if (Auth::guard('seller-api')->check() || Auth::guard('customer-api')->check()) {
+
+            if ($seller->followings()->whereFollowableType(Customer::class)->count() > 0) {
+                $followings = $seller->followings()->whereFollowableType(Customer::class)
                     ->orderBy('updated_at', 'DESC')
                     ->get();
 
@@ -456,6 +415,157 @@ class FollowController extends Controller
             ], 401);
         }
     }
+
+    //-----------------------------------------------------------------------------------
+    public function customerfollowersTypeSeller($customer_id)
+    {
+        $customer = Customer::find($customer_id);
+
+        if (!$customer) {
+            return response()->json([
+                'message' => "customer not found",
+                'status' => 404
+            ], 404);
+        }
+
+        if (Auth::guard('seller-api')->check() || Auth::guard('customer-api')->check()) {
+
+            if ($customer->followers()->whereFollowerType(Seller::class)->count() > 0) {
+                $followers = $customer->followers()->whereFollowerType(Seller::class)
+                    ->orderBy('updated_at', 'DESC')
+                    ->get();
+
+                return response()->json([
+                    "followers" => SellersFollowers::collection($followers),
+                    "status" => 200
+                ], 200);
+            } else {
+                return response()->json([
+                    "followers" => [],
+                    "status" => 200
+                ], 200);
+            }
+        } else {
+            return response()->json([
+                "message" => "Unauthenticated.",
+                "status" => 401
+            ], 401);
+        }
+    }
+    public function customerfollowersTypeCustomer($customer_id)
+    {
+        $customer = Customer::find($customer_id);
+
+        if (!$customer) {
+            return response()->json([
+                'message' => "customer not found",
+                'status' => 404
+            ], 404);
+        }
+
+        if (Auth::guard('seller-api')->check() || Auth::guard('customer-api')->check()) {
+
+            if ($customer->followers()->whereFollowerType(Customer::class)->count() > 0) {
+                $followers = $customer->followers()->whereFollowerType(Customer::class)
+                    ->orderBy('updated_at', 'DESC')
+                    ->get();
+
+                return response()->json([
+                    "followers" => CustomersFollowers::collection($followers),
+                    "status" => 200
+                ], 200);
+            } else {
+                return response()->json([
+                    "followers" => [],
+                    "status" => 200
+                ], 200);
+            }
+        } else {
+            return response()->json([
+                "message" => "Unauthenticated.",
+                "status" => 401
+            ], 401);
+        }
+    }
+
+    public function customerfollowingsTypeSeller($customer_id)
+    {
+        $customer = Customer::find($customer_id);
+
+        if (!$customer) {
+            return response()->json([
+                'message' => "customer not found",
+                'status' => 404
+            ], 404);
+        }
+
+        if (Auth::guard('seller-api')->check() || Auth::guard('customer-api')->check()) {
+
+            if ($customer->followings()->whereFollowableType(Seller::class)->count() > 0) {
+                $followings = $customer->followings()->whereFollowableType(Seller::class)
+                    ->orderBy('updated_at', 'DESC')
+                    ->get();
+
+                return response()->json([
+                    "followings" => SellersFollowings::collection($followings),
+                    "status" => 200
+                ], 200);
+            } else {
+                return response()->json([
+                    "followings" => [],
+                    "status" => 200
+                ], 200);
+            }
+        } else {
+            return response()->json([
+                "message" => "Unauthenticated.",
+                "status" => 401
+            ], 401);
+        }
+    }
+
+    public function customerfollowingsTypeCustomer($customer_id)
+    {
+        $customer = Customer::find($customer_id);
+
+        if (!$customer) {
+            return response()->json([
+                'message' => "customer not found",
+                'status' => 404
+            ], 404);
+        }
+
+        if (Auth::guard('seller-api')->check() || Auth::guard('customer-api')->check()) {
+
+            if ($customer->followings()->whereFollowableType(Customer::class)->count() > 0) {
+                $followings = $customer->followings()->whereFollowableType(Customer::class)
+                    ->orderBy('updated_at', 'DESC')
+                    ->get();
+
+                return response()->json([
+                    "followings" => CustomersFollowings::collection($followings),
+                    "status" => 200
+                ], 200);
+            } else {
+                return response()->json([
+                    "followings" => [],
+                    "status" => 200
+                ], 200);
+            }
+        } else {
+            return response()->json([
+                "message" => "Unauthenticated.",
+                "status" => 401
+            ], 401);
+        }
+    }
+
+
+
+
+
+
+    //---------------------------------------------------------------------------
 
 
     public function get_followers($id)
