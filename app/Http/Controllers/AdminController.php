@@ -9,33 +9,34 @@ use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
-    public function AdminLogout(){
+    public function AdminLogout()
+    {
 
         Auth::logout();
         return Redirect()->route('login');
-
     } // end
 
 
-    public function UserProfile(){
+    public function UserProfile()
+    {
 
-        $adminData = User::find(1);
-        return view('backend.admin.admin_profile',compact('adminData'));
-
+        $adminData = Auth::user();
+        return view('backend.admin.admin_profile', compact('adminData'));
     } // end
 
 
-    public function UserProfileStore(Request $request){
+    public function UserProfileStore(Request $request)
+    {
 
-        $data = User::find(1);
+        $data = Auth::user();
         $data->name = $request->name;
         $data->email = $request->email;
 
         if ($request->file('profile_photo_path')) {
             $file = $request->file('profile_photo_path');
-            @unlink(public_path('upload/admin_images/'.$data->profile_photo_path));
-            $filename = date('YmdHi').$file->getClientOriginalName();
-            $file->move(public_path('upload/admin_images'),$filename);
+            @unlink(public_path('upload/admin_images/' . $data->profile_photo_path));
+            $filename = date('YmdHi') . $file->getClientOriginalName();
+            $file->move(public_path('upload/admin_images'), $filename);
             $data['profile_photo_path'] = $filename;
         }
         $data->save();
@@ -46,17 +47,18 @@ class AdminController extends Controller
         );
 
         return redirect()->route('user.profile')->with($notification);
-
     } // end
 
 
 
-    public function ChangePassword(){
+    public function ChangePassword()
+    {
         return view('backend.admin.change_password');
     } // end
 
 
-    public function ChangePasswordUpdate(Request $request){
+    public function ChangePasswordUpdate(Request $request)
+    {
 
         $validateData = $request->validate([
             'oldpassword' => 'required',
@@ -64,18 +66,16 @@ class AdminController extends Controller
         ]);
 
         $hashedPassword = User::find(1)->password;
-        if (Hash::check($request->oldpassword,$hashedPassword)) {
+        if (Hash::check($request->oldpassword, $hashedPassword)) {
             $user = User::find(1);
             $user->password = Hash::make($request->password);
             $user->save();
             Auth::logout();
 
             return redirect()->route('admin.logout');
-        }
-        else{
+        } else {
             return redirect()->back();
         }
-
     } // end
 
 }
