@@ -64,7 +64,7 @@
 									<div class="ms-auto">
 										<ul id="nav" class="navbar-nav ms-auto">
 											<li class="nav-item">
-												<a class="page-scroll" href="http://dann.store" target="_blank">For individuals</a>
+												<a class="page-scroll" href="https://dann.store" target="_blank">For individuals</a>
 											</li>
 
 											</li>

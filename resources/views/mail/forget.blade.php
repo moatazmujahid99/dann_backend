@@ -7,7 +7,7 @@
     <div>
 <h1>Dann Business Park</h1> <br>
 
- Change Your Password <a href="http://dann.store/reset/{{ $data }}">Click Here</a>
+ Change Your Password <a href="https://dann.store/reset/{{ $data }}">Click Here</a>
  <br>
  Pincode : {{ $data }}<br>
 

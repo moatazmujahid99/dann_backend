@@ -139,7 +139,7 @@
                               <p class="mb-30">Dann Business Park, Egypt's first social commerce platform, that combines all the pros of social media networks along with the power of online marketplaces, A powerful website and mobile app, specially designed for local small and micro businesses.
 
                                 We aim to make online local communities for trade and business in each city of Egypt, to boost our economy, and help people grow their businesses. </p>
-                              <a href="http://dann.store" target="_blank" class="main-btn btn-hover border-btn">Visit Dann</a>
+                              <a href="https://dann.store" target="_blank" class="main-btn btn-hover border-btn">Visit Dann</a>
                           </div>
                       </div>
                   </div>
