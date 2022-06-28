@@ -15,6 +15,20 @@ use App\Http\Controllers\Controller;
 
 class ProductListController extends Controller
 {
+
+    public function GetAllProductList()
+    {
+        $productlist = ProductList::orderBy('updated_at', 'DESC')->get();
+        foreach ($productlist as $product) {
+            if (isset($product->seller_id)) {
+                $product->seller_name = $product->seller->name;
+                $product->seller_image = $product->seller->seller_img ? URL::to('images/sellers/' . $product->seller->seller_img) : null;
+                unset($product->seller);
+            }
+        }
+        return $productlist;
+    }
+
     public function ProductListByRemark(Request $request)
     {
 
