@@ -21,10 +21,10 @@
 
 						<div class="footer-social">
 							<ul>
-								<li><a href="#0"><i class="lni lni-facebook"></i></a></li>
-								<li><a href="#0"><i class="lni lni-linkedin"></i></a></li>
-								<li><a href="#0"><i class="lni lni-instagram"></i></a></li>
-								<li><a href="#0"><i class="lni lni-twitter"></i></a></li>
+								<li><a href="https://facebook.com/Dann-Business-Park-111894944887894/"><i class="lni lni-facebook"></i></a></li>
+								<li><a href="https://www.linkedin.com/company/82274253/"><i class="lni lni-linkedin"></i></a></li>
+								<li><a href="https://www.instagram.com/dann.business.park/"><i class="lni lni-instagram"></i></a></li>
+								<li><a href="https://twitter.com/dann_business"><i class="lni lni-twitter"></i></a></li>
 							</ul>
 						</div>
 
