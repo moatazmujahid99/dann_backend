@@ -128,7 +128,8 @@
                                                 <span
                                                     style="color: gray ; font-size:13px; margin-left:15px; font-style: italic">(optional)
                                                 </span>
-                                                <input class="form-control" name="image_four" type="file" id="image_four">
+                                                <input class="form-control" name="image_four" type="file"
+                                                    id="image_four">
                                             </div>
 
                                             @if (isset($item->image_four))
@@ -240,6 +241,9 @@
                                             <div class="col-12">
                                                 <label for="inputCollection" class="form-label"
                                                     style="font-weight: bold">Brand </label>
+                                                <span
+                                                    style="color: gray ; font-size:13px; margin-left:15px; font-style: italic">(optional)
+                                                </span>
                                                 <select name="brand" class="form-select" id="inputCollection">
                                                     <option selected="">Select Brand</option>
                                                     <option value="Tony">Tony</option>
@@ -257,28 +261,30 @@
                                                     <span
                                                         style="color: gray ; font-size:13px; margin-left:15px; font-style: italic">(optional)
                                                     </span>
-                                                    <input type="text" name="size" class="form-control visually-hidden"
-                                                        data-role="tagsinput" value="{{ $item->size }}">
+                                                    <input type="text" name="size"
+                                                        class="form-control visually-hidden" data-role="tagsinput"
+                                                        value="{{ $item->size }}">
                                                 </div>
 
 
                                                 <div class="mb-3">
                                                     <label class="form-label" style="font-weight: bold">Product
                                                         Color</label>
-                                                    <input type="text" name="color" class="form-control visually-hidden"
-                                                        data-role="tagsinput" value="{{ $item->color }}">
+                                                    <input type="text" name="color"
+                                                        class="form-control visually-hidden" data-role="tagsinput"
+                                                        value="{{ $item->color }}">
                                                 </div>
                                             @endforeach
 
                                             <div class="mb-3 ">
 
-                                                <label class="form-label" style="font-weight: bold">Remark
-
-                                                </label>
+                                                <label class="form-label" style="font-weight: bold">Remark</label>
+                                                <span
+                                                    style="color: gray ; font-size:13px; margin-left:15px; font-style: italic">(optional)
+                                                </span>
 
                                                 <div class="form-control" style="height: 130px;">
-                                                    <div class="form-check"
-                                                        style=" margin-top:10px; margin-bottom:10px">
+                                                    <div class="form-check" style=" margin-top:10px; margin-bottom:10px">
                                                         <input class="form-check-input" name="remark" type="checkbox"
                                                             value="FEATURED" id="flexCheckDefault1"
                                                             {{ $product->remark == 'FEATURED' ? 'checked' : '' }}>
@@ -290,7 +296,8 @@
                                                         <input class="form-check-input" name="remark" type="checkbox"
                                                             value="NEW" id="flexCheckDefault2"
                                                             {{ $product->remark == 'NEW' ? 'checked' : '' }}>
-                                                        <label class="form-check-label" for="flexCheckDefault2">NEW</label>
+                                                        <label class="form-check-label"
+                                                            for="flexCheckDefault2">NEW</label>
                                                     </div>
 
 

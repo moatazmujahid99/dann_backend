@@ -117,8 +117,6 @@ class ProductListController extends Controller
             'image' => 'required',
             'category' => 'required',
             'subcategory' => 'required',
-            'remark' => 'required',
-            'brand' => 'required',
             'seller_id' => 'integer'
 
         ], [
@@ -271,8 +269,6 @@ class ProductListController extends Controller
             'image' => 'required',
             'category' => 'required',
             'subcategory' => 'required',
-            'remark' => 'required',
-            'brand' => 'required',
             'seller_id' => 'integer'
 
         ], [

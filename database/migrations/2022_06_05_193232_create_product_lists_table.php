@@ -21,8 +21,8 @@ class CreateProductListsTable extends Migration
             $table->string('image');
             $table->string('category');
             $table->string('subcategory');
-            $table->string('remark');
-            $table->string('brand');
+            $table->string('remark')->nullable();
+            $table->string('brand')->nullable();
             $table->string('star')->nullable();
             $table->string('product_code');
             $table->unsignedBigInteger('seller_id')->nullable();

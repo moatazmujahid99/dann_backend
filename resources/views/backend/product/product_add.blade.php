@@ -225,6 +225,11 @@
                                                     style="font-weight: bold">Brand
 
                                                 </label>
+
+                                                <span
+                                                    style="color: gray ; font-size:13px; margin-left:15px; font-style: italic">(optional)
+                                                </span>
+
                                                 <select name="brand" class="form-select" id="inputCollection">
                                                     <option selected="">Select Brand</option>
                                                     <option value="Tony">Tony</option>
@@ -256,13 +261,13 @@
 
                                             <div class="mb-3 ">
 
-                                                <label class="form-label" style="font-weight: bold">Remark
-
-                                                </label>
+                                                <label class="form-label" style="font-weight: bold">Remark</label>
+                                                <span
+                                                    style="color: gray ; font-size:13px; margin-left:15px; font-style: italic">(optional)
+                                                </span>
 
                                                 <div class="form-control" style="height: 130px;">
-                                                    <div class="form-check "
-                                                        style=" margin-top:10px; margin-bottom:10px">
+                                                    <div class="form-check " style=" margin-top:10px; margin-bottom:10px">
                                                         <input class="form-check-input" name="remark" type="checkbox"
                                                             value="FEATURED" id="flexCheckDefault">
                                                         <label class="form-check-label"
