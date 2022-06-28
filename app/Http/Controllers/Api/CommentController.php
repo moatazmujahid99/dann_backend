@@ -31,7 +31,7 @@ class CommentController extends Controller
             return response()->json([
                 'message' => "post not found",
                 'status' => 404
-            ],404);
+            ], 404);
         }
 
         if (Auth::guard('seller-api')->check() || Auth::guard('customer-api')->check()) {
@@ -39,12 +39,12 @@ class CommentController extends Controller
             return response()->json([
                 'comments' => CommentResource::collection($post->comments),
                 'status' => 200
-            ],200);
+            ], 200);
         } else {
             return response()->json([
                 "message" => "Unauthenticated.",
                 "status" => 401
-            ],401);
+            ], 401);
         }
     }
     /**
@@ -62,18 +62,18 @@ class CommentController extends Controller
             return response()->json([
                 'message' => "post not found",
                 'status' => 404
-            ],404);
+            ], 404);
         }
 
         $validator = Validator::make($request->all(), [
-            'comment_text' => 'required|min:5|max:2000',
+            'comment_text' => 'required|min:1|max:2000',
         ]);
 
         if ($validator->fails()) {
             return response()->json([
                 'error' => $validator->errors()->all(),
                 'status' => 400
-            ],400);
+            ], 400);
         }
 
         $seller_id = null;
@@ -87,7 +87,7 @@ class CommentController extends Controller
             return response()->json([
                 "message" => "Unauthenticated.",
                 "status" => 401
-            ],401);
+            ], 401);
         }
 
         $comment = Comment::create([
@@ -118,7 +118,7 @@ class CommentController extends Controller
             'message' => "comment is created successfully",
             'comment' => $arrayData,
             'status' => 201
-        ],201);
+        ], 201);
     }
 
     /**
