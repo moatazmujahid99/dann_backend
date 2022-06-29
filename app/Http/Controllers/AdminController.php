@@ -20,7 +20,16 @@ class AdminController extends Controller
     public function UserProfile()
     {
 
-        $adminData = Auth::user();
+        if (Auth::guard('seller')->check()) {
+            $adminData = Auth::guard('seller')->user();
+        }
+
+
+        if (Auth::guard('web')->check()) {
+            $adminData = Auth::user();
+        }
+
+
         return view('backend.admin.admin_profile', compact('adminData'));
     } // end
 

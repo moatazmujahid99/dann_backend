@@ -359,11 +359,24 @@
                     role="button" data-bs-toggle="dropdown" aria-expanded="false">
 
                     @php
-                        $adminData = Auth::user();
+                        if (Auth::guard('seller')->check()) {
+                            $adminData = Auth::guard('seller')->user();
+                        }
+                        if (Auth::guard('web')->check()) {
+                            $adminData = Auth::user();
+                        }
                     @endphp
 
-                    <img src="{{ !empty($adminData->profile_photo_path) ? url('upload/admin_images/' . $adminData->profile_photo_path) : url('upload/no_image.jpg') }}"
-                        class="user-img" alt="user avatar">
+                    @if (Auth::guard('web')->check())
+                        <img src="{{ !empty($adminData->profile_photo_path) ? url('upload/admin_images/' . $adminData->profile_photo_path) : url('upload/no_image.jpg') }}"
+                            alt="Admin" class="user-img">
+                    @endif
+
+                    @if (Auth::guard('seller')->check())
+                        <img src="{{ !empty($adminData->seller_img) ? url('images/sellers/' . $adminData->seller_img) : url('upload/no_image.jpg') }}"
+                            alt="Admin" class="user-img">
+                    @endif
+
                     <div class="user-info ps-3">
                         <p class="user-name mb-0"> {{ $adminData->name }} </p>
                         <p class="designattion mb-0">{{ $adminData->email }}</p>
@@ -388,9 +401,28 @@
                     <li>
                         <div class="dropdown-divider mb-0"></div>
                     </li>
-                    <li><a class="dropdown-item" href="{{ route('admin.logout') }}"><i
-                                class='bx bx-log-out-circle'></i><span>Logout</span></a>
-                    </li>
+
+                    @if (Auth::guard('seller')->check())
+                        <li>
+                            <a class="dropdown-item" href="{{ route('seller.logout') }}"
+                                onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                                <i class='bx bx-log-out-circle'></i>
+                                <span>Logout</span>
+                            </a>
+                            <form action="{{ route('seller.logout') }}" id="logout-form" method="post">@csrf
+                            </form>
+                        </li>
+                    @endif
+                    @if (Auth::guard('web')->check())
+                        <li>
+                            <a class="dropdown-item" href="{{ route('admin.logout') }}">
+                                <i class='bx bx-log-out-circle'></i><span>Logout</span>
+                            </a>
+                        </li>
+                    @endif
+
+
+
                 </ul>
             </div>
         </nav>

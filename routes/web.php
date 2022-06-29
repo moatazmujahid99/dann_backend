@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\ReviewController;
 use App\Http\Controllers\Admin\SiteInfoController;
 use App\Http\Controllers\Admin\ProductCartController;
+use App\Http\Controllers\WebSellerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +37,21 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('admin.index');
     })->name('dashboard');
+});
+
+Route::prefix('seller')->name('seller.')->group(function () {
+
+    Route::middleware(['guest:seller'])->group(function () {
+        Route::view('/login', 'seller.login')->name('login');
+        Route::view('/register', 'seller.register')->name('register');
+        Route::post('/create', [WebSellerController::class, 'create'])->name('create');
+        Route::post('/check', [WebSellerController::class, 'check'])->name('check');
+    });
+
+    Route::middleware(['auth:seller'])->group(function () {
+        Route::view('/dashboard', 'admin.index')->name('dashboard');
+        Route::post('/logout', [WebSellerController::class, 'logout'])->name('logout');
+    });
 });
 
 

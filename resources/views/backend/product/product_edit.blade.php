@@ -191,21 +191,28 @@
                                             </div>
 
                                             {{-- ------------------------- -------------------- COMMENT IT WHEN YOU VIEW THE SHOP--------------------------------------------- --}}
-                                            <div class="col-12">
-                                                <label for="shops" class="form-label" style="font-weight: bold">Shops
+                                            @if (Auth::guard('seller')->check())
+                                                <input type="hidden" name="seller_id"
+                                                    value="{{ Auth::guard('seller')->user()->id }}">
+                                            @endif
+                                            @if (Auth::guard('web')->check())
+                                                <div class="col-12">
+                                                    <label for="shops" class="form-label"
+                                                        style="font-weight: bold">Shops
 
-                                                </label>
-                                                <select name="seller_id" class="form-select" id="shops">
+                                                    </label>
+                                                    <select name="seller_id" class="form-select" id="shops">
 
-                                                    <option selected="">Select Shop</option>
-                                                    @foreach ($sellers as $seller)
-                                                        <option value="{{ $seller->id }}"
-                                                            @if (isset($product->seller->name)) {{ $seller->name == $product->seller->name ? 'selected' : '' }} @endif>
-                                                            {{ $seller->name }}</option>
-                                                    @endforeach
-                                                </select>
-                                                <small class="form-text text-danger">{!! $errors->first('seller_id') !!}</small>
-                                            </div>
+                                                        <option selected="">Select Shop</option>
+                                                        @foreach ($sellers as $seller)
+                                                            <option value="{{ $seller->id }}"
+                                                                @if (isset($product->seller->name)) {{ $seller->name == $product->seller->name ? 'selected' : '' }} @endif>
+                                                                {{ $seller->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    <small class="form-text text-danger">{!! $errors->first('seller_id') !!}</small>
+                                                </div>
+                                            @endif
                                             {{-- ----------------------------------------------------------------------------------------------------------- --}}
                                             <div class="col-12">
                                                 <label for="inputProductType" class="form-label"

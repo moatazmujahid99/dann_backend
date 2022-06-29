@@ -25,7 +25,10 @@
                                     <th>Product Code </th>
                                     <th>Product Category </th>
                                     {{-- comment it when you view the shop --}}
-                                    <th>Shop Name</th>
+                                    @if (Auth::guard('web')->check())
+                                        <th>Shop Name</th>
+                                    @endif
+
                                     {{-- ------------- --}}
                                     <th>Action</th>
                                 </tr>
@@ -49,9 +52,10 @@
                                         <td>{{ $item->product_code }}</td>
                                         <td>{{ $item->category }}</td>
                                         {{-- comment it when you view the shop --}}
-                                        <td>{{ $item->seller->name }}</td>
-                                        {{-- ----------------------------------- --}}
-
+                                        @if (Auth::guard('web')->check())
+                                            <td>{{ $item->seller->name }}</td>
+                                            {{-- ----------------------------------- --}}
+                                        @endif
                                         <td>
                                             <a href="{{ route('product.edit', $item->id) }}" class="btn btn-info">Edit
                                             </a>

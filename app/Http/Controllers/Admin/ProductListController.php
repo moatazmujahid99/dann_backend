@@ -12,6 +12,7 @@ use App\Models\ProductDetails;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
 use App\Http\Controllers\Controller;
+use Auth;
 
 class ProductListController extends Controller
 {
@@ -98,8 +99,19 @@ class ProductListController extends Controller
 
     public function GetAllProduct()
     {
+        if (Auth::guard('seller')->check()) {
+            $products = ProductList::where('seller_id', Auth::guard('seller')->user()->id)
+                ->latest()->paginate(10);
+        }
 
-        $products = ProductList::latest()->paginate(10);
+
+        if (Auth::guard('web')->check()) {
+            $products = ProductList::latest()->paginate(10);
+        }
+
+
+
+
         return view('backend.product.product_all', compact('products'));
     } // End Method
 
@@ -270,6 +282,7 @@ class ProductListController extends Controller
 
     public function UpdateProduct(Request $request, $id)
     {
+
         $productDetails = ProductDetails::where('product_id', $id)->first();
         $prodcutList = ProductList::findOrFail($id);
 
