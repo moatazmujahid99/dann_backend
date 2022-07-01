@@ -266,13 +266,13 @@ class SellerController extends Controller
 
 
 
-            $distance = 200;
+            $distance = 4000;
 
             $sellers = DB::select(DB::raw('SELECT*,( 3959 * acos( cos( radians(' . $request->lat . ') ) *cos( radians(lat))* cos( radians(lng) - radians(' . $request->lng . ')) + sin( radians(' . $request->lat . ') ) *sin( radians(lat) ) )) AS distance FROM sellers HAVING distance < ' . $distance . ' ORDER BY distance'));
 
 
             return response()->json([
-                'sellers' => SellersDisplay::collection($sellers),
+                'sellers' => $sellers,
                 'status' => 404
             ], 404);
         } else {
