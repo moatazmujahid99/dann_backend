@@ -24,7 +24,7 @@ class Seller extends Authenticatable implements CanFollowContract, CanBeFollowed
 
     protected $fillable = [
         'name', 'email', 'password', 'seller_img', 'phone_number',
-        'address', 'category_id',
+        'address', 'category_id', 'lat', 'lng'
     ];
 
     public function category()

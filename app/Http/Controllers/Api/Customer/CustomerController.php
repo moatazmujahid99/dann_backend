@@ -118,7 +118,8 @@ class CustomerController extends Controller
             $image_resize = Image::make($image);
             $image_resize->resize(null, 300, function ($constraint) {
                 $constraint->aspectRatio();
-                $constraint->upsize();});
+                $constraint->upsize();
+            });
             $image_resize->save('images/customers/' . $name_gen);
 
             if (isset($customer->customer_img)) {
@@ -182,6 +183,51 @@ class CustomerController extends Controller
         } else {
             return response()->json([
                 "message" => "You are not authorized to delete this image",
+                "status" => 403
+            ], 403);
+        }
+    }
+
+
+    public function addAddress(Request $request, $id)
+    {
+        $customer = Customer::find($id);
+
+        if (!$customer) {
+            return response()->json([
+                'message' => "customer not found",
+                'status' => 404
+            ], 404);
+        }
+        if (Auth::guard('customer-api')->user()->id == $id) {
+
+            $validator = Validator::make($request->all(), [
+                'address' => 'required',
+                'lat' => 'required|numeric',
+                'lng' => 'required|numeric',
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'error' => $validator->errors()->all(),
+                    'status' => 400
+                ], 400);
+            }
+
+            $customer->update([
+                'address' => $request->address,
+                'lat' => $request->lat,
+                'lng' => $request->lng,
+
+            ]);
+
+            return response()->json([
+                'message' => "The address is added successfully",
+                'status' => 200
+            ], 200);
+        } else {
+            return response()->json([
+                "message" => "You are not authorized to add address",
                 "status" => 403
             ], 403);
         }

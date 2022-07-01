@@ -22,7 +22,7 @@ class Customer extends Authenticatable implements CanFollowContract, CanBeFollow
     protected $primaryKey = 'id';
 
     protected $fillable = [
-        'name', 'email', 'password', 'customer_img', 'bio',
+        'name', 'email', 'password', 'customer_img', 'bio', 'address', 'lat', 'lng'
     ];
 
     public function posts()

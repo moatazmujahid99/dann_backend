@@ -14,6 +14,7 @@ use App\Http\Controllers\Api\FollowController;
 use App\Http\Controllers\Api\LikeController;
 
 
+
 // omar - check
 use App\Http\Controllers\User\ResetController;
 use App\Http\Controllers\User\ForgetController;
@@ -135,6 +136,9 @@ Route::get('/islike/post/{post_id}', [LikeController::class, 'isLikePost']);
 
 Route::get('/likers/post/{post_id}', [LikeController::class, 'getUsersLikePost']);
 
+//nearby sellers
+
+Route::get('/getNearBySellers', [SellerController::class, 'getNearBySellers']);
 
 
 /*

@@ -23,4 +23,5 @@ Route::group(['middleware' => 'auth:seller-api'], function () {
 
     Route::post('/seller/{seller_id}/update', [SellerController::class, 'update']);
     Route::post('/seller/{seller_id}/image/delete', [SellerController::class, 'deleteSellerImage']);
+    Route::post('/addAddress/seller/{seller_id}', [SellerController::class, 'addAddress']);
 });

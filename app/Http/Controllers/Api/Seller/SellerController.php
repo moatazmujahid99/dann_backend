@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Seller;
 use App\Models\User;
 use App\Models\Seller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -13,6 +14,7 @@ use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Resources\seller\SellerResource;
 use App\Http\Resources\seller\SellersDisplay;
+
 
 
 class SellerController extends Controller
@@ -199,6 +201,90 @@ class SellerController extends Controller
             ], 403);
         }
     }
+
+    public function addAddress(Request $request, $id)
+    {
+
+        $seller = Seller::find($id);
+
+        if (!$seller) {
+            return response()->json([
+                'message' => "seller not found",
+                'status' => 404
+            ], 404);
+        }
+        if (Auth::guard('seller-api')->user()->id == $id) {
+
+            $validator = Validator::make($request->all(), [
+                'address' => 'required',
+                'lat' => 'required|numeric',
+                'lng' => 'required|numeric',
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'error' => $validator->errors()->all(),
+                    'status' => 400
+                ], 400);
+            }
+
+            $seller->update([
+                'address' => $request->address,
+                'lat' => $request->lat,
+                'lng' => $request->lng,
+
+            ]);
+
+            return response()->json([
+                'message' => "The address is added successfully",
+                'status' => 200
+            ], 200);
+        } else {
+            return response()->json([
+                "message" => "You are not authorized to add address",
+                "status" => 403
+            ], 403);
+        }
+    }
+
+    public function getNearBySellers(Request $request)
+    {
+
+        if (Auth::guard('seller-api')->check() || Auth::guard('customer-api')->check()) {
+
+            $validator = Validator::make($request->all(), [
+                'lat' => 'required|numeric',
+                'lng' => 'required|numeric',
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'error' => $validator->errors()->all(),
+                    'status' => 400
+                ], 400);
+            }
+
+
+
+            $distance = 200;
+
+            $sellers = DB::select(DB::raw('SELECT*,( 3959 * acos( cos( radians(' . $request->lat . ') ) *cos( radians(lat))* cos( radians(lng) - radians(' . $request->lng . ')) + sin( radians(' . $request->lat . ') ) *sin( radians(lat) ) )) AS distance FROM sellers HAVING distance < ' . $distance . ' ORDER BY distance'));
+
+
+            return response()->json([
+                'sellers' => SellersDisplay::collection($sellers),
+                'status' => 404
+            ], 404);
+        } else {
+
+            return response()->json([
+                "message" => "Unauthenticated.",
+                "status" => 401
+            ], 401);
+        }
+    }
+
+
 
     /**
      * Remove the specified resource from storage.
