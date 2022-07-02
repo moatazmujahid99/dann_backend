@@ -272,7 +272,7 @@ class SellerController extends Controller
 
 
             return response()->json([
-                'sellers' => $sellers,
+                'sellers' => SellersDisplay::collection($sellers),
                 'status' => 404
             ], 404);
         } else {
